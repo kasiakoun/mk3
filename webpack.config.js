@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const tsNameof = require("ts-nameof");
 
 module.exports = {
     entry: "./src/index.ts",
@@ -19,7 +20,12 @@ module.exports = {
             {
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-                use: ["ts-loader"],
+                use: [{
+                    loader: "ts-loader",
+                    options: {
+                        getCustomTransformers: () => ({ before: [tsNameof] })
+                    }
+                }],
             },
             {
                 test: /\.(css|scss)$/,

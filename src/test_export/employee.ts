@@ -1,4 +1,4 @@
-class Employee {
+export class Employee {
   public name: string;
   public lastName: string;
 
@@ -7,5 +7,3 @@ class Employee {
     this.lastName = lastName;
   }
 }
-
-export default Employee;

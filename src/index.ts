@@ -1,6 +1,9 @@
-import Employee from "./test_export/employee";
+import { Employee } from "./test_export/employee";
+import { myContainer } from "./inversify.config";
+import { IService } from "./services/i_service";
 
+const service = myContainer.get<IService>(nameof<IService>());
 var className = nameof<Employee>();
 var employee = new Employee("nikita", "kasiakou");
-document.body.innerHTML = `My full name: ${employee.name} ${employee.lastName} class name: ${className}`;
+document.body.innerHTML = `service.getData: ${service.getData()}`;
 console.log("test test");

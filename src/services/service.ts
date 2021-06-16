@@ -1,11 +1,11 @@
-import { IService } from "./i_service";
-import { injectable } from "inversify";
+import { IService } from './i_service';
+import { injectable } from 'inversify';
 
 @injectable()
 class Service implements IService {
   getData(): string {
-    return "This is fake data";
+    return 'This is fake data';
   }
 }
 
-export { Service }
+export { Service };

@@ -1,13 +1,8 @@
 import { Point } from './point';
 
 export class Transform {
-  position: Point;
-  width: number;
-  height: number;
+  cartesianPosition: Point;
 
-  constructor(position: Point, width: number, height: number) {
-    this.position = position;
-    this.width = width;
-    this.height = height;
+  constructor(public position: Point) {
   }
 }

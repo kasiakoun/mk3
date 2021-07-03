@@ -1,20 +1,20 @@
 export class Observable {
-  #observers: (() => void)[] = [];
+  private observers: (() => void)[] = [];
 
   subscribe(action: () => void) {
-    this.#observers.push(action);
+    this.observers.push(action);
   }
 
   unsubscribe(action: () => void) {
-    const foundIndex = this.#observers.indexOf(action);
-    this.#observers.splice(foundIndex, 1);
+    const foundIndex = this.observers.indexOf(action);
+    this.observers.splice(foundIndex, 1);
   }
 
   fire() {
-    this.#observers.forEach(p => p());
+    this.observers.forEach(p => p());
   }
 
   clear() {
-    this.#observers = [];
+    this.observers = [];
   }
 }

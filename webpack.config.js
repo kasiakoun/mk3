@@ -32,8 +32,11 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
             {
-                test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
-                use: ["file-loader"],
+                test: /\.(png|jpe?g|gif|jp2|webp)$/,
+                loader: 'file-loader',
+                options: {
+                  name: 'src/assets/graphics/units/[name].[ext]'
+                }
             },
         ],
     },

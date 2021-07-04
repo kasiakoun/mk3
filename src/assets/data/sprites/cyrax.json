@@ -1,5 +1,5 @@
 {
-  "image": "assets/graphics/units/cyrax.png",
+  "image": "graphics/units/cyrax.png",
   "animations": [
     {
       "name": "stance",

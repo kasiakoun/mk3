@@ -5,10 +5,10 @@ import { UnitName } from '../entities/unit_name';
 import { container } from '../inversify.config';
 import { ParabolaMotion } from '../motions/parabola_motion';
 
-export function start() {
+export async function start() {
   const gameElement = document.getElementById('game');
   // todo: TEMP init constructor by converter
-  const spriteSheet = createSpriteSheet(UnitName.Cyrax);
+  const spriteSheet = await createSpriteSheet(UnitName.Cyrax);
   const entity = new Entity(spriteSheet);
   entity.updated.subscribe(() => {
     const unitElement = createUnitElement(entity);

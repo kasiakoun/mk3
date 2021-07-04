@@ -16,13 +16,13 @@ export class ParabolaMotion {
               private readonly coordinateConverter: CoordinateConverter) {
   }
 
-  start() {
+  start(): Promise<unknown> {
     this.entity.spriteSheet.setCurrentAnimation(this.animationName);
 
     const startPosition: Point = this.entity.transform.cartesianPosition;
     const endPosition: Point = this.movement.calculateEndPosition(startPosition);
 
-    const promise = new Promise(resolve => this.timerService.start(() => {
+    return new Promise(resolve => this.timerService.start(() => {
       this.move(startPosition, endPosition, resolve);
     }));
   }

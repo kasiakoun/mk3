@@ -1,5 +1,6 @@
 {
   "image": "graphics/units/cyrax.png",
+  "name": "cyrax",
   "animations": [
     {
       "name": "stance",
@@ -9,55 +10,73 @@
           "x": 9,
           "y": 2098,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 88,
           "y": 2098,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 165,
           "y": 2098,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 239,
           "y": 2098,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 316,
           "y": 2093,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 395,
           "y": 2092,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 478,
           "y": 2093,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 563,
           "y": 2094,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 647,
           "y": 2095,
           "width": 79,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         }
       ]
     },
@@ -69,55 +88,73 @@
           "x": 9,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 104,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 199,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 294,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 389,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 484,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 579,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 674,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 769,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         }
       ]
     },
@@ -129,55 +166,73 @@
           "x": 769,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 674,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 579,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 484,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 389,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 294,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 199,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 104,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 9,
           "y": 2799,
           "width": 86,
-          "height": 137
+          "height": 137,
+          "offsetX": 0,
+          "offsetY": 0
         }
       ]
     },
@@ -186,32 +241,100 @@
       "repeatAnimation": false,
       "frames": [
         {
-          "frameRate": 35,
           "x": 9,
           "y": 1028,
           "width": 83,
-          "height": 146
+          "height": 146,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
-          "frameRate": 70,
           "x": 101,
           "y": 1028,
           "width": 98,
-          "height": 99
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
-          "frameRate": 660,
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
+          "x": 101,
+          "y": 1028,
+          "width": 98,
+          "height": 99,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
           "x": 9,
           "y": 1028,
           "width": 83,
-          "height": 146
+          "height": 146,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
-          "frameRate": 51,
           "x": 208,
           "y": 1028,
           "width": 82,
-          "height": 119
+          "height": 119,
+          "offsetX": 0,
+          "offsetY": 0
         }
       ]
     },
@@ -223,19 +346,25 @@
           "x": 9,
           "y": 3965,
           "width": 90,
-          "height": 121
+          "height": 121,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 108,
           "y": 3965,
           "width": 96,
-          "height": 98
+          "height": 98,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 213,
           "y": 3965,
           "width": 84,
-          "height": 73
+          "height": 73,
+          "offsetX": 0,
+          "offsetY": 0
         }
       ]
     },
@@ -247,85 +376,113 @@
           "x": 9,
           "y": 320,
           "width": 59,
-          "height": 147
+          "height": 147,
+          "offsetX": 0,
+          "offsetY": 0
         },
         {
           "x": 77,
           "y": 320,
           "width": 45,
-          "height": 78
+          "height": 78,
+          "offsetX": -3,
+          "offsetY": 19
         },
         {
           "x": 131,
           "y": 320,
           "width": 62,
-          "height": 67
+          "height": 67,
+          "offsetX": -9,
+          "offsetY": 35
         },
         {
           "x": 202,
           "y": 320,
           "width": 78,
-          "height": 45
+          "height": 45,
+          "offsetX": -18,
+          "offsetY": 40
         },
         {
           "x": 289,
           "y": 320,
           "width": 65,
-          "height": 62
+          "height": 62,
+          "offsetX": -19,
+          "offsetY": 44
         },
         {
           "x": 363,
           "y": 320,
           "width": 45,
-          "height": 78
+          "height": 78,
+          "offsetX": -8,
+          "offsetY": 36
         },
         {
           "x": 417,
           "y": 320,
           "width": 78,
-          "height": 43
+          "height": 43,
+          "offsetX": -21,
+          "offsetY": 55
         },
         {
           "x": 504,
           "y": 320,
           "width": 65,
-          "height": 62
+          "height": 62,
+          "offsetX": 0,
+          "offsetY": 44
         },
         {
           "x": 77,
           "y": 320,
           "width": 45,
-          "height": 78
+          "height": 78,
+          "offsetX": 7,
+          "offsetY": 39
         },
         {
           "x": 131,
           "y": 320,
           "width": 62,
-          "height": 67
+          "height": 67,
+          "offsetX": 4,
+          "offsetY": 43
         },
         {
           "x": 202,
           "y": 320,
           "width": 78,
-          "height": 45
+          "height": 45,
+          "offsetX": -7,
+          "offsetY": 47
         },
         {
           "x": 289,
           "y": 320,
           "width": 65,
-          "height": 62
+          "height": 62,
+          "offsetX": -8,
+          "offsetY": 34
         },
         {
           "x": 363,
           "y": 320,
           "width": 45,
-          "height": 78
+          "height": 78,
+          "offsetX": 5,
+          "offsetY": 15
         },
         {
           "x": 9,
           "y": 320,
           "width": 59,
-          "height": 147
+          "height": 147,
+          "offsetX": 0,
+          "offsetY": 0
         }
       ]
     }

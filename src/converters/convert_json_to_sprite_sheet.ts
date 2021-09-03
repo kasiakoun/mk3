@@ -5,11 +5,18 @@ import { Point } from '../point';
 
 export async function convertJsonToSpriteSheet(jsonObject: any): Promise<SpriteSheet> {
   const animations = jsonObject.animations.map((animation: any) => {
-    const frames = animation.frames.map((frame: any) => {
+    const frames: Frame[] = [];
+    animation.frames.forEach((frame: any) => {
       const imageOffset = new Point(frame.x, frame.y);
       const offset = new Point(frame.offsetX, frame.offsetY);
 
-      return new Frame(imageOffset, offset, frame.width, frame.height);
+      let newFrame = new Frame(imageOffset, offset, frame.width, frame.height);
+      frames.push(newFrame);
+
+      for (let i = 0; i < frame.duplicates; i++) {
+        newFrame = new Frame(imageOffset, offset, frame.width, frame.height);
+        frames.push(newFrame);
+      }
     });
 
     return new Animation(animation.name, frames, animation.repeatAnimation);

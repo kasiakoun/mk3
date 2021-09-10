@@ -1,18 +1,18 @@
 import { AnimationName } from '../animations/animation_name';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
-import { ForwardParabolaMovement } from '../movements/parabola_movement/forward_parabola_movement';
+import { NoActionMovement } from '../movements/no_action_movement';
 import { TimerService } from '../timer_service';
-import { FiniteMotion } from './finite_motion';
+import { InfiniteMotion } from './infinite_motion';
 
-export class ParabolaMotion extends FiniteMotion {
+export class StanceMotion extends InfiniteMotion {
   constructor(entity: Entity,
               coordinateConverter: CoordinateConverter) {
     super(entity,
           coordinateConverter,
-          AnimationName.ParabolaJump,
+          AnimationName.Stance,
           // todo: use TimerService from Entity
           new TimerService(),
-          new ForwardParabolaMovement());
+          new NoActionMovement());
   }
 }

@@ -10,6 +10,6 @@ export class Entity {
   // todo: TEMP consturctor
   constructor (readonly spriteSheet: SpriteSheet) {
     this.transform = new Transform();
-    this.transform.cartesianPosition = new Point(100, 100);
+    this.transform.cartesianPosition = new Point(400, 50);
   }
 }

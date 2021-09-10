@@ -33,8 +33,6 @@ export abstract class AnimationFrameStrategy {
 
     const frameIndex = Math.round(partFramesLength) - 1;
 
-    console.log(`animationType: ${typeof this}frameIndex: ${frameIndex}`);
-
     if (frameIndex >= 0) return frames[frameIndex];
 
     return undefined!;

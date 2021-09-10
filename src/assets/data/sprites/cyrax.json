@@ -273,17 +273,17 @@
           "width": 83,
           "height": 146,
           "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetY": -9,
+          "duplicates": 3
         },
         {
           "x": 101,
           "y": 1028,
           "width": 98,
           "height": 99,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 8
+          "offsetX": -14,
+          "offsetY": -13,
+          "duplicates": 14
         },
         {
           "x": 9,
@@ -291,8 +291,8 @@
           "width": 83,
           "height": 146,
           "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetY": -8,
+          "duplicates": 3
         },
         {
           "x": 208,
@@ -300,7 +300,7 @@
           "width": 82,
           "height": 119,
           "offsetX": 0,
-          "offsetY": 0,
+          "offsetY": 17,
           "duplicates": 0
         }
       ]

@@ -1,9 +1,10 @@
 import { Container } from 'inversify';
 // this import reflect-metadata row has to be after inversify and before other memebers
 import 'reflect-metadata';
-import { IService } from './services/i_service';
-import { Service } from './services/service';
 import { } from 'ts-nameof';
+import { Game } from './game';
+import { CoordinateConverter } from './converters/coordinate_converter';
 
-export const myContainer = new Container();
-myContainer.bind<IService>(nameof<IService>()).to(Service);
+export const container = new Container();
+container.bind<Game>(nameof<Game>()).to(Game);
+container.bind<CoordinateConverter>(nameof<CoordinateConverter>()).to(CoordinateConverter);

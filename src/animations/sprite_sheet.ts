@@ -53,4 +53,9 @@ export class SpriteSheet {
 
     this.#currentFrame = frame;
   }
+
+  getRightCornerOffset(): number {
+    const result = this.frameStrategy?.getRightCornerOffset();
+    return result;
+  }
 }

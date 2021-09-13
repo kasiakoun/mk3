@@ -3,10 +3,10 @@ import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
 import { UnitName } from '../entities/unit_name';
 import { container } from '../inversify.config';
-import { ParabolaMotion } from '../motions/parabola_motion';
+import { BackwardParabolaMotion } from '../motions/backward_parabola_motion';
+import { ForwardParabolaMotion } from '../motions/forward_parabola_motion';
 import { StanceMotion } from '../motions/stance_motion';
 import { UpwardMotion } from '../motions/upward_motion';
-import { UpwardMovement } from '../movements/upward_movement';
 import { Point } from '../point';
 
 export async function start() {
@@ -31,24 +31,43 @@ export async function start() {
       gameElement.appendChild(unitElement);
     }
   });
-  const parabolaMotion1 = new ParabolaMotion(entity, coordinateConverter);
-  await parabolaMotion1.start();
+  const forwardParabolaMotion1 = new ForwardParabolaMotion(entity, coordinateConverter);
+  await forwardParabolaMotion1.start();
 
   const stanceMotion1 = new StanceMotion(entity, coordinateConverter);
   setTimeout(() => stanceMotion1.stop(), 2000);
   await stanceMotion1.start();
 
+  const backwardParabolaMotion1 = new BackwardParabolaMotion(entity, coordinateConverter);
+  await backwardParabolaMotion1.start();
+
   const upwardMotion1 = new UpwardMotion(entity, coordinateConverter);
   await upwardMotion1.start();
 
-  const parabolaMotion2 = new ParabolaMotion(entity, coordinateConverter);
-  await parabolaMotion2.start();
+  // const parabolaMotion2 = new ParabolaMotion(entity, coordinateConverter);
+  // await parabolaMotion2.start();
 
-  const upwardMotion2 = new UpwardMotion(entity, coordinateConverter);
-  await upwardMotion2.start();
+  // const upwardMotion2 = new UpwardMotion(entity, coordinateConverter);
+  // await upwardMotion2.start();
+
+  entity.leftDirection = true;
+
+  const stanceMotion4 = new StanceMotion(entity, coordinateConverter);
+  setTimeout(() => stanceMotion4.stop(), 1000);
+  await stanceMotion4.start();
+
+  const backwardParabolaMotion2 = new BackwardParabolaMotion(entity, coordinateConverter);
+  await backwardParabolaMotion2.start();
 
   const stanceMotion2 = new StanceMotion(entity, coordinateConverter);
+  setTimeout(() => stanceMotion2.stop(), 2000);
   await stanceMotion2.start();
+
+  const forwardParabolaMotion2 = new ForwardParabolaMotion(entity, coordinateConverter);
+  await forwardParabolaMotion2.start();
+
+  const stanceMotion3 = new StanceMotion(entity, coordinateConverter);
+  await stanceMotion3.start();
 }
 
 function createBoundary(position: Point): Element {
@@ -74,6 +93,10 @@ function createUnitElement(entity: Entity): Element {
     unitElement.style.width = `${entity.spriteSheet.currentFrame.width}px`;
     unitElement.style.height = `${entity.spriteSheet.currentFrame.height}px`;
     unitElement.style.backgroundPosition = `-${entity.spriteSheet.currentFrame.imageOffset.x}px -${entity.spriteSheet.currentFrame.imageOffset.y}px`;
+  }
+
+  if (entity.leftDirection) {
+    unitElement.style.transform = 'scaleX(-1)';
   }
 
   // unitElement.style.width = '1px';

@@ -2,6 +2,7 @@ import { Frame } from '../animations/frame';
 import { Animation } from '../animations/animation';
 import { SpriteSheet } from '../animations/sprite_sheet';
 import { Point } from '../point';
+import { DuplicatedFrame } from '../animations/duplicated_frame';
 
 export async function convertJsonToSpriteSheet(jsonObject: any): Promise<SpriteSheet> {
   const animations = jsonObject.animations.map((animation: any) => {
@@ -14,7 +15,7 @@ export async function convertJsonToSpriteSheet(jsonObject: any): Promise<SpriteS
       frames.push(newFrame);
 
       for (let i = 0; i < frame.duplicates; i++) {
-        newFrame = new Frame(imageOffset, offset, frame.width, frame.height);
+        newFrame = new DuplicatedFrame(imageOffset, offset, frame.width, frame.height);
         frames.push(newFrame);
       }
     });

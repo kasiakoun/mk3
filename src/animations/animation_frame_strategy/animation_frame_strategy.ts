@@ -1,3 +1,4 @@
+import { DuplicatedFrame } from '../duplicated_frame';
 import { Frame } from '../frame';
 import { SpriteSheet } from '../sprite_sheet';
 
@@ -38,6 +39,40 @@ export abstract class AnimationFrameStrategy {
     return undefined!;
   }
 
+  protected getRightCornerOffsetFromArray(frames: Frame[]): number {
+    const currentFrame = this.spriteSheet.currentFrame;
+
+    if (!frames) return 0;
+    if (!currentFrame) return 0;
+    if (!frames.some(p => p === currentFrame)) return 0;
+
+    const takenFrames: Frame[] = this.takeArrayUntilCurrentFrame(frames);
+    const framesWithoutDuplicates = takenFrames.filter(p => !(p instanceof DuplicatedFrame));
+
+    let offset = 0;
+    framesWithoutDuplicates.forEach((frame, i) => {
+      offset += i > 0
+      ? framesWithoutDuplicates[i - 1].width - frame.width
+      : 0;
+    });
+
+    return offset;
+  }
+
+  private takeArrayUntilCurrentFrame(frames: Frame[]): Frame[] {
+    const currentFrame = this.spriteSheet.currentFrame;
+    const takenFrames: Frame[] = [];
+    frames.every((p) => {
+      takenFrames.push(p);
+      if (p === currentFrame) return false;
+
+      return true;
+    });
+
+    return takenFrames;
+  }
+
   abstract getNextFrame(): Frame;
   abstract getNextFrameByPercentage(percentage: number): Frame;
+  abstract getRightCornerOffset(): number;
 }

@@ -19,4 +19,13 @@ export class AnimationBackwardFrameStrategy extends AnimationFrameStrategy {
 
     return this.getNextFrameByPercentageFromArray(percentage, frames);
   }
+
+  getRightCornerOffset(): number {
+    const frames = this.spriteSheet.currentAnimation?.frames.map(p => p);
+    if (!frames) return undefined!;
+
+    frames.reverse();
+
+    return this.getRightCornerOffsetFromArray(frames);
+  }
 }

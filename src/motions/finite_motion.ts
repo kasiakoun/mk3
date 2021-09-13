@@ -12,6 +12,7 @@ export abstract class FiniteMotion extends BaseMotion {
     transform.cartesianPosition = calculatedPosition;
     transform.position = this.coordinateConverter.convertCartesianToScreen(calculatedPosition);
 
+    this.alignPositionByDirection();
     this.alignPositionByOffset();
 
     if (this.isStopped) {

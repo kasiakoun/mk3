@@ -34,11 +34,21 @@ export abstract class BaseMotion implements Motion {
 
   protected abstract move(start: Point, end: Point, resolve: (value: unknown) => void): void;
 
-  public alignPositionByOffset() {
+  protected alignPositionByOffset() {
     if (!this.entity.spriteSheet.currentFrame) return;
 
     const transform = this.entity.transform;
-    transform.position.x = transform.position.x + this.entity.spriteSheet.currentFrame.offset.x;
-    transform.position.y = transform.position.y + this.entity.spriteSheet.currentFrame.offset.y;
+    const offset = this.entity.spriteSheet.currentFrame.offset;
+    transform.position.x += this.entity.leftDirection ? -offset.x : offset.x;
+    transform.position.y += offset.y;
+  }
+
+  protected alignPositionByDirection() {
+    const spriteSheet = this.entity.spriteSheet;
+    if (!this.entity.leftDirection) return;
+
+    const rightCorenerOffset = spriteSheet.getRightCornerOffset();
+
+    this.entity.transform.position.x += rightCorenerOffset;
   }
 }

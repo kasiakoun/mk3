@@ -6,6 +6,7 @@ import { Transform } from '../transform';
 export class Entity {
   readonly #transform: Transform;
   readonly #updated: Observable = new Observable();
+  leftDirection: boolean = false;
 
   get transform(): Transform {
     return this.#transform;

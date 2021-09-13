@@ -13,6 +13,7 @@ export class UpwardMotion extends FiniteMotion {
           AnimationName.JumpUpward,
           // todo: use TimerService from Entity
           new TimerService(),
-          new UpwardMovement());
+          new UpwardMovement(),
+          false);
   }
 }

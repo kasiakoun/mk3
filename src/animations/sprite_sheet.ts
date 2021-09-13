@@ -32,10 +32,10 @@ export class SpriteSheet {
     this.#currentFrame = frame;
   }
 
-  setCurrentAnimation(animation: AnimationName, isBackwardAnimation?: boolean) {
+  setCurrentAnimation(animation: AnimationName, isReverseAnimation: boolean) {
     this.#currentAnimation = this.animations.find(p => p.animationName === animation);
     // this.#currentFrame = undefined;
-    this.frameStrategy = isBackwardAnimation
+    this.frameStrategy = isReverseAnimation
       ? this.backwardStrategy
       : this.forwardStrategy;
   }

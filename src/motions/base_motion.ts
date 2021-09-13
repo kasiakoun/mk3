@@ -13,11 +13,12 @@ export abstract class BaseMotion implements Motion {
               protected readonly coordinateConverter: CoordinateConverter,
               private readonly animationName: AnimationName,
               protected readonly timerService: TimerService,
-              protected readonly movement: Movement) {
+              protected readonly movement: Movement,
+              protected readonly isReverseAnimation: boolean) {
   }
 
   start(): Promise<unknown> {
-    this.entity.spriteSheet.setCurrentAnimation(this.animationName, false);
+    this.entity.spriteSheet.setCurrentAnimation(this.animationName, this.isReverseAnimation);
 
     const startPosition: Point = this.entity.transform.cartesianPosition;
     const endPosition: Point = this.movement.calculateEndPosition(startPosition);

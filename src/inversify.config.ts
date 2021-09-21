@@ -4,7 +4,9 @@ import 'reflect-metadata';
 import { } from 'ts-nameof';
 import { Game } from './game';
 import { CoordinateConverter } from './converters/coordinate_converter';
+import { EntityFactory } from './factories/entity_factory';
 
 export const container = new Container();
 container.bind<Game>(nameof<Game>()).to(Game);
 container.bind<CoordinateConverter>(nameof<CoordinateConverter>()).to(CoordinateConverter);
+container.bind<EntityFactory>(nameof<EntityFactory>()).to(EntityFactory);

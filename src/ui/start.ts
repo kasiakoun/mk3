@@ -1,6 +1,7 @@
 import { createSpriteSheet } from '../factories/sprite_sheet_factory';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
+import { Unit } from '../entities/unit';
 import { UnitName } from '../entities/unit_name';
 import { container } from '../inversify.config';
 import { BackwardParabolaMotion } from '../motions/backward_parabola_motion';
@@ -8,12 +9,14 @@ import { ForwardParabolaMotion } from '../motions/forward_parabola_motion';
 import { StanceMotion } from '../motions/stance_motion';
 import { UpwardMotion } from '../motions/upward_motion';
 import { Point } from '../point';
+import { EntityFactory } from '../factories/entity_factory';
 
 export async function start() {
   const gameElement = document.getElementById('game');
   // todo: TEMP init constructor by converter
-  const spriteSheet = await createSpriteSheet(UnitName.Cyrax);
-  const entity = new Entity(spriteSheet);
+  const entityFactory = container.get<EntityFactory>(nameof<EntityFactory>());
+  // todo: replace initial point
+  const entity = await entityFactory.createUnit(UnitName.Cyrax, new Point(400, 50));
 
   const coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
 

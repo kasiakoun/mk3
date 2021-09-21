@@ -1,4 +1,4 @@
-import { createSpriteSheet } from '../animations/sprite_sheet_factory';
+import { createSpriteSheet } from '../factories/sprite_sheet_factory';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
 import { UnitName } from '../entities/unit_name';

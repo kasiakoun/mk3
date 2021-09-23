@@ -24,7 +24,8 @@ export class SpriteSheet {
   }
 
   constructor (readonly animations: Animation[],
-               readonly image: string) {
+               readonly image: string,
+               readonly name: string) {
   }
 
   setCurrentFrameByIndex(index: number) {
@@ -34,6 +35,8 @@ export class SpriteSheet {
 
   setCurrentAnimation(animation: AnimationName, isReverseAnimation: boolean) {
     this.#currentAnimation = this.animations.find(p => p.animationName === animation);
+    if (!this.#currentAnimation) throw new Error(`Animation ${animation} does not exist`);
+
     // this.#currentFrame = undefined;
     this.frameStrategy = isReverseAnimation
       ? this.backwardStrategy

@@ -26,5 +26,5 @@ export async function convertJsonToSpriteSheet(jsonObject: any): Promise<SpriteS
   const loadedImage = await import(`../assets/${jsonObject.image}`);
   const pathToImage = loadedImage.default;
 
-  return new SpriteSheet(animations, pathToImage);
+  return new SpriteSheet(animations, pathToImage, jsonObject.name);
 }

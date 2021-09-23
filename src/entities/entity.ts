@@ -16,6 +16,10 @@ export class Entity {
     return this.#updated;
   }
 
+  get name(): string {
+    return this.spriteSheet.name;
+  }
+
   constructor (readonly spriteSheet: SpriteSheet,
                cartesianPosition: Point) {
     this.#transform = new Transform();

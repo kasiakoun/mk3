@@ -14,6 +14,7 @@ export class UpwardMotion extends FiniteMotion {
           // todo: use TimerService from Entity
           new TimerService(),
           new UpwardMovement(),
-          false);
+          false,
+          true);
   }
 }

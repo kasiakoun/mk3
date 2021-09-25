@@ -14,7 +14,8 @@ export abstract class BaseMotion implements Motion {
               private readonly animationName: AnimationName,
               protected readonly timerService: TimerService,
               protected readonly movement: Movement,
-              protected readonly isReverseAnimation: boolean) {
+              protected readonly isReverseAnimation: boolean,
+              protected readonly changeByPassedPercetange: boolean) {
   }
 
   start(): Promise<unknown> {
@@ -32,7 +33,34 @@ export abstract class BaseMotion implements Motion {
     this.isStopped = true;
   }
 
-  protected abstract move(start: Point, end: Point, resolve: (value: unknown) => void): void;
+  protected move(start: Point, end: Point, resolve: (value: unknown) => void): Point {
+    const calculatedPosition = this.movement.move(start, end);
+
+    const spriteSheet = this.entity.spriteSheet;
+    const animationFinished = this.changeByPassedPercetange
+      ? spriteSheet.setFrameByPercentage(this.movement.travelledLengthPercentage)
+      : !spriteSheet.moveToNextFrame();
+
+    const transform = this.entity.transform;
+    transform.cartesianPosition = calculatedPosition;
+    transform.position = this.coordinateConverter.convertCartesianToScreen(calculatedPosition);
+
+    this.alignPositionByDirection();
+    this.alignPositionByOffset();
+
+    if (this.isStopped) {
+      this.timerService.stop();
+      resolve(undefined);
+    }
+
+    this.entity.updated.fire();
+    if (animationFinished) {
+      this.timerService.stop();
+      resolve(undefined);
+    }
+
+    return calculatedPosition;
+  }
 
   protected alignPositionByOffset() {
     if (!this.entity.spriteSheet.currentFrame) return;

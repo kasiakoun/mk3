@@ -43,11 +43,13 @@ export class SpriteSheet {
       : this.forwardStrategy;
   }
 
-  moveToNextFrame() {
+  moveToNextFrame(): boolean {
     const nextFrame = this.frameStrategy?.getNextFrame();
-    if (!nextFrame) return;
+    if (!nextFrame) return false;
 
     this.#currentFrame = nextFrame;
+
+    return true;
   }
 
   setFrameByPercentage(percentage: number) {

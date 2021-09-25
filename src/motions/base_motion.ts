@@ -8,6 +8,7 @@ import { Motion } from './motion';
 
 export abstract class BaseMotion implements Motion {
   protected isStopped: boolean;
+  protected animationFinished: boolean;
 
   constructor(protected readonly entity: Entity,
               protected readonly coordinateConverter: CoordinateConverter,
@@ -37,8 +38,8 @@ export abstract class BaseMotion implements Motion {
     const calculatedPosition = this.movement.move(start, end);
 
     const spriteSheet = this.entity.spriteSheet;
-    const animationFinished = this.changeByPassedPercetange
-      ? spriteSheet.setFrameByPercentage(this.movement.travelledLengthPercentage)
+    this.animationFinished = this.changeByPassedPercetange
+      ? !spriteSheet.setFrameByPercentage(this.movement.travelledLengthPercentage)
       : !spriteSheet.moveToNextFrame();
 
     const transform = this.entity.transform;
@@ -54,10 +55,6 @@ export abstract class BaseMotion implements Motion {
     }
 
     this.entity.updated.fire();
-    if (animationFinished) {
-      this.timerService.stop();
-      resolve(undefined);
-    }
 
     return calculatedPosition;
   }

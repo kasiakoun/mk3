@@ -52,11 +52,13 @@ export class SpriteSheet {
     return true;
   }
 
-  setFrameByPercentage(percentage: number) {
+  setFrameByPercentage(percentage: number): boolean {
     const frame = this.frameStrategy?.getNextFrameByPercentage(percentage);
-    if (!frame) return;
+    if (!frame) return false;
 
     this.#currentFrame = frame;
+
+    return true;
   }
 
   getRightCornerOffset(): number {

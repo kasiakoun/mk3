@@ -16,9 +16,13 @@ export class Entity {
     return this.#updated;
   }
 
-  // todo: TEMP consturctor
-  constructor (readonly spriteSheet: SpriteSheet) {
+  get name(): string {
+    return this.spriteSheet.name;
+  }
+
+  constructor (readonly spriteSheet: SpriteSheet,
+               cartesianPosition: Point) {
     this.#transform = new Transform();
-    this.#transform.cartesianPosition = new Point(400, 50);
+    this.#transform.cartesianPosition = cartesianPosition;
   }
 }

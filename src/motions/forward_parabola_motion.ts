@@ -20,6 +20,7 @@ export class ForwardParabolaMotion extends FiniteMotion {
           // todo: use TimerService from Entity
           new TimerService(),
           animation,
-          isReverseAnimation);
+          isReverseAnimation,
+          true);
   }
 }

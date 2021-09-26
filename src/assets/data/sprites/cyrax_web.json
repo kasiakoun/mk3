@@ -1,0 +1,204 @@
+{
+  "image": "graphics/units/cyrax.png",
+  "name": "cyrax_web",
+  "animations": [
+    {
+      "name": "fly",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 141,
+          "y": 4100,
+          "width": 77,
+          "height": 17,
+          "offsetX": 14,
+          "offsetY": 33,
+          "duplicates": 3
+        },
+        {
+          "x": 227,
+          "y": 4100,
+          "width": 73,
+          "height": 38,
+          "offsetX": 14,
+          "offsetY": 23,
+          "duplicates": 3
+        },
+        {
+          "x": 309,
+          "y": 4100,
+          "width": 63,
+          "height": 70,
+          "offsetX": 14,
+          "offsetY": 7,
+          "duplicates": 2
+        },
+        {
+          "x": 381,
+          "y": 4100,
+          "width": 50,
+          "height": 113,
+          "offsetX": 14,
+          "offsetY": -14,
+          "duplicates": 2
+        },
+        {
+          "x": 440,
+          "y": 4097,
+          "width": 51,
+          "height": 135,
+          "offsetX": 14,
+          "offsetY": -28,
+          "duplicates": 2
+        },
+        {
+          "x": 500,
+          "y": 4100,
+          "width": 57,
+          "height": 151,
+          "offsetX": 14,
+          "offsetY": -36,
+          "duplicates": 0
+        }
+      ]
+    },
+    {
+      "name": "break",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 1183,
+          "y": 4100,
+          "width": 75,
+          "height": 162,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 1267,
+          "y": 4100,
+          "width": 77,
+          "height": 164,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 1353,
+          "y": 4095,
+          "width": 83,
+          "height": 176,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 1445,
+          "y": 4100,
+          "width": 92,
+          "height": 183,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 1546,
+          "y": 4100,
+          "width": 108,
+          "height": 191,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 1663,
+          "y": 4100,
+          "width": 129,
+          "height": 201,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        }
+      ]
+    },
+    {
+      "name": "catch",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 566,
+          "y": 4100,
+          "width": 74,
+          "height": 160,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 649,
+          "y": 4100,
+          "width": 74,
+          "height": 156,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 732,
+          "y": 4100,
+          "width": 67,
+          "height": 155,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 808,
+          "y": 4096,
+          "width": 66,
+          "height": 156,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 883,
+          "y": 4100,
+          "width": 64,
+          "height": 152,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 956,
+          "y": 4100,
+          "width": 66,
+          "height": 152,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 1031,
+          "y": 4100,
+          "width": 67,
+          "height": 153,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        },
+        {
+          "x": 1107,
+          "y": 4100,
+          "width": 67,
+          "height": 150,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 0
+        }
+      ]
+    }
+  ]
+}

@@ -469,6 +469,39 @@
           "duplicates": 0
         }
       ]
+    },
+    {
+      "name": "throw",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 4,
+          "y": 4100,
+          "width": 59,
+          "height": 136,
+          "offsetX": 8,
+          "offsetY": 1,
+          "duplicates": 5
+        },
+        {
+          "x": 72,
+          "y": 4100,
+          "width": 60,
+          "height": 134,
+          "offsetX": 7,
+          "offsetY": 3,
+          "duplicates": 48
+        },
+        {
+          "x": 4,
+          "y": 4100,
+          "width": 59,
+          "height": 136,
+          "offsetX": 8,
+          "offsetY": 1,
+          "duplicates": 5
+        }
+      ]
     }
   ]
 }

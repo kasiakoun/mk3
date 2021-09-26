@@ -1,20 +1,20 @@
 import { AnimationName } from '../animations/animation_name';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
-import { UpwardMovement } from '../movements/upward_movement';
+import { LinearMovement } from '../movements/linear_movement';
 import { TimerService } from '../timer_service';
-import { FiniteMotion } from './finite_motion';
+import { InfiniteMotion } from './infinite_motion';
 
-export class UpwardMotion extends FiniteMotion {
+export class LinearMotion extends InfiniteMotion {
   constructor(entity: Entity,
               coordinateConverter: CoordinateConverter) {
     super(entity,
           coordinateConverter,
-          AnimationName.JumpUpward,
+          AnimationName.Fly,
           // todo: use TimerService from Entity
           new TimerService(),
-          new UpwardMovement(),
+          new LinearMovement(),
           false,
-          true);
+          false);
   }
 }

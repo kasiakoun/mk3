@@ -14,6 +14,7 @@ export class StanceMotion extends InfiniteMotion {
           // todo: use TimerService from Entity
           new TimerService(),
           new NoActionMovement(),
+          false,
           false);
   }
 }

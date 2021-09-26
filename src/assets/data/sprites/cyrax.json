@@ -481,7 +481,7 @@
           "height": 136,
           "offsetX": 8,
           "offsetY": 1,
-          "duplicates": 3
+          "duplicates": 5
         },
         {
           "x": 72,
@@ -490,7 +490,7 @@
           "height": 134,
           "offsetX": 7,
           "offsetY": 3,
-          "duplicates": 50
+          "duplicates": 48
         },
         {
           "x": 4,
@@ -499,7 +499,7 @@
           "height": 136,
           "offsetX": 8,
           "offsetY": 1,
-          "duplicates": 3
+          "duplicates": 5
         }
       ]
     }

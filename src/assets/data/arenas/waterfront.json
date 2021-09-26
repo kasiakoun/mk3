@@ -1,0 +1,111 @@
+{
+  "width": 1185,
+  "height": 254,
+  "layers": [
+    {
+      "speed": 1,
+      "elements": [
+        {
+          "link": "graphics/arenas/waterfront/p_1.png",
+          "width": 1200,
+          "height": 38,
+          "x": -10,
+          "y": 216,
+          "zIndex": 11000
+        },
+        {
+          "link": "graphics/arenas/waterfront/p_2.png",
+          "width": 1205,
+          "height": 80,
+          "x": -16,
+          "y": 136,
+          "zIndex": 11000
+        },
+        {
+          "link": "graphics/arenas/waterfront/p_3.png",
+          "width": 114,
+          "height": 215,
+          "x": -1,
+          "y": -1,
+          "zIndex": 10000
+        }
+      ]
+    },
+    {
+      "speed": 0.42,
+      "elements": [
+        {
+          "link": "graphics/arenas/waterfront/p_5.png",
+          "width": 732,
+          "height": 69,
+          "x": -1,
+          "y": 96,
+          "zIndex": 1000
+        }
+      ]
+    },
+    {
+      "speed": 0.55,
+      "elements": [
+        {
+          "link": "graphics/arenas/waterfront/p_4_1.gif",
+          "width": 544,
+          "height": 21,
+          "x": 543,
+          "y": 147,
+          "zIndex": 100
+        },
+        {
+          "link": "graphics/arenas/waterfront/p_4_1.gif",
+          "width": 544,
+          "height": 21,
+          "x": -1,
+          "y": 147,
+          "zIndex": 100
+        },
+        {
+          "link": "graphics/arenas/waterfront/p_4_2.gif",
+          "width": 544,
+          "height": 40,
+          "x": -1,
+          "y": 168,
+          "zIndex": 100
+        },
+        {
+          "link": "graphics/arenas/waterfront/p_4_2.gif",
+          "width": 544,
+          "height": 40,
+          "x": 543,
+          "y": 168,
+          "zIndex": 100
+        }
+      ]
+    },
+    {
+      "speed": 0.40,
+      "elements": [
+        {
+          "link": "graphics/arenas/waterfront/p_6.png",
+          "width": 540,
+          "height": 50,
+          "x": -1,
+          "y": 72,
+          "zIndex": 100
+        }
+      ]
+    },
+    {
+      "speed": 0.15,
+      "elements": [
+        {
+          "link": "graphics/arenas/waterfront/p_7.png",
+          "width": 516,
+          "height": 90,
+          "x": 0,
+          "y": 18,
+          "zIndex": 10
+        }
+      ]
+    }
+  ]
+}

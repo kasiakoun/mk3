@@ -5,7 +5,7 @@ import { ArenaView } from './arena_view';
 import { ParallaxLayerElement } from './parallax_layer_element';
 
 export class Parallax {
-  constructor(private readonly arena: ArenaView) {}
+  constructor(private readonly arenaView: ArenaView) {}
 
   getParallaxElementPosition(layer: ArenaLayer, element: ArenaLayerElement, offest: Point): Point {
     const x = element.position.x + ((1 - layer.speed) * offest.x);
@@ -14,10 +14,10 @@ export class Parallax {
     return new Point(x, y);
   }
 
-  move(offest: Point) {
+  move(offest: Point): ParallaxLayerElement[] {
     const parallaxLayerElements: ParallaxLayerElement[] = [];
 
-    this.arena.layers.forEach((layer: ArenaLayer) => {
+    this.arenaView.layers.forEach((layer: ArenaLayer) => {
       layer.elements.forEach((layerElement: ArenaLayerElement) => {
         const parallaxElementPosition = this
           .getParallaxElementPosition(layer, layerElement, offest);

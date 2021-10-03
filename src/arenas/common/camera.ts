@@ -6,7 +6,7 @@ import { ParallaxLayerElement } from './parallax_layer_element';
 
 export class Camera {
   private readonly parallax: Parallax;
-  private readonly positionChanged: Observable<Point, ParallaxLayerElement[]> = new Observable();
+  readonly positionChanged: Observable<Point, ParallaxLayerElement[]> = new Observable();
 
   #position: Point = new Point(0, 0);
 
@@ -20,15 +20,15 @@ export class Camera {
     this.positionChanged.fire(this.position, parallaxElements);
   }
 
-  constructor(private readonly arena: ArenaView,
-              private readonly width: number,
-              private readonly height: number) {
-    this.parallax = new Parallax(arena);
+  constructor(readonly arenaView: ArenaView,
+              readonly width: number,
+              readonly height: number) {
+    this.parallax = new Parallax(arenaView);
   }
 
   private alignPosition(position: Point): Point {
     const clonedPosition = Object.assign({}, position);
-    const maxCameraPositionX = this.arena.width - this.width;
+    const maxCameraPositionX = this.arenaView.width - this.width;
 
     if (position.x > maxCameraPositionX) clonedPosition.x = maxCameraPositionX;
     if (position.x < 0) clonedPosition.x = 0;

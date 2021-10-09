@@ -29,7 +29,10 @@ let cameraElement: Element;
 let arenaElement: Element;
 let cameraPosition: Point;
 
+let refreshingIsStopped: boolean = false;
+
 export async function start() {
+  initDebugTools();
   gameElement = document.getElementById('game')!;
   const entityFactory = container.get<EntityFactory>(nameof<EntityFactory>());
   const coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
@@ -111,6 +114,7 @@ function addEntityElement(entity: Entity) {
 }
 
 function refreshGameElements() {
+  if (refreshingIsStopped) return;
   if (gameElement === null) return;
   // const coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
   // tslint:disable-next-line:max-line-length
@@ -148,4 +152,12 @@ function createBoundary(position: Point): Element {
   boundaryElement.style.marginTop = `${position.y}px`;
 
   return boundaryElement;
+}
+
+function initDebugTools() {
+  const stopButton = document.getElementById('stopButton') as HTMLButtonElement;
+  stopButton.onclick = () => { refreshingIsStopped = true; };
+
+  const startButton = document.getElementById('startButton') as HTMLButtonElement;
+  startButton.onclick = () => { refreshingIsStopped = false; };
 }

@@ -51,7 +51,7 @@ export async function start() {
   const cameraController = new CameraController(camera, arena, coordinateConverter);
 
   // todo: replace initial point
-  const entity = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 200));
+  const entity = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 150));
 
   startRefreshElements();
 

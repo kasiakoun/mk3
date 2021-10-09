@@ -6,6 +6,7 @@ export function createCameraElement(camera: Camera): Element {
   cameraElement.className = 'camera-element';
   cameraElement.style.width = `${camera.width}px`;
   cameraElement.style.height = `${camera.height}px`;
+  // cameraElement.style.overflow = 'scroll';
   cameraElement.style.overflow = 'hidden';
   cameraElement.style.position = 'relative';
 

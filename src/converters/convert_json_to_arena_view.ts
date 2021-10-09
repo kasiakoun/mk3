@@ -5,11 +5,12 @@ import { Point } from '../point';
 
 export async function convertJsonToArenaView(jsonObject: any): Promise<ArenaView> {
   const layers: ArenaLayer[] = [];
+  const marginTop = jsonObject.marginTop;
   for (const layer of jsonObject.layers) {
     const arenaLayerElements: ArenaLayerElement[] = [];
 
     for (const element of layer.elements) {
-      const position = new Point(element.x, element.y);
+      const position = new Point(element.x, element.y + marginTop);
 
       const loadedImage = await import(`../assets/${element.link}`);
       const pathToImage = loadedImage.default;
@@ -26,5 +27,5 @@ export async function convertJsonToArenaView(jsonObject: any): Promise<ArenaView
     layers.push(arenaLayer);
   }
 
-  return new ArenaView(jsonObject.width, jsonObject.height, layers);
+  return new ArenaView(jsonObject.width, jsonObject.height + marginTop, layers);
 }

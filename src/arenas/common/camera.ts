@@ -1,3 +1,4 @@
+import { CoordinateConverter } from '../../converters/coordinate_converter';
 import { Observable } from '../../observable';
 import { Point } from '../../point';
 import { ArenaView } from './arena_view';
@@ -8,30 +9,48 @@ export class Camera {
   private readonly parallax: Parallax;
   readonly positionChanged: Observable<Point, ParallaxLayerElement[]> = new Observable();
 
-  #position: Point = new Point(0, 0);
+  #cartesianPosition: Point;
+  #position: Point;
 
   get position(): Point {
     return this.#position;
   }
 
-  set position(val: Point) {
+  private set position(val: Point) {
     this.#position = this.alignPosition(val);
     const parallaxElements = this.parallax.move(this.position);
     this.positionChanged.fire(this.position, parallaxElements);
   }
 
-  constructor(readonly arenaView: ArenaView,
+  get cartesianPosition(): Point {
+    return this.#cartesianPosition;
+  }
+
+  set cartesianPosition(val: Point) {
+    this.#cartesianPosition = val;
+    const screenPosition = this.coordinateConverter.convertCartesianToScreen(val);
+    this.position = screenPosition;
+  }
+
+  constructor(readonly coordinateConverter: CoordinateConverter,
+              readonly arenaView: ArenaView,
               readonly width: number,
               readonly height: number) {
     this.parallax = new Parallax(arenaView);
+    this.cartesianPosition = new Point(0, 0);
   }
 
   private alignPosition(position: Point): Point {
     const clonedPosition = Object.assign({}, position);
+
     const maxCameraPositionX = this.arenaView.width - this.width;
+    const maxCameraPositionY = this.arenaView.height - this.height;
 
     if (position.x > maxCameraPositionX) clonedPosition.x = maxCameraPositionX;
     if (position.x < 0) clonedPosition.x = 0;
+
+    if (position.y > maxCameraPositionY) clonedPosition.y = maxCameraPositionY;
+    if (position.y < 0) clonedPosition.y = 0;
 
     return clonedPosition;
   }

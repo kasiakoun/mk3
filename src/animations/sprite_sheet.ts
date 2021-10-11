@@ -54,7 +54,7 @@ export class SpriteSheet {
 
   setFrameByPercentage(percentage: number): boolean {
     const frame = this.frameStrategy?.getNextFrameByPercentage(percentage);
-    if (!frame) return false;
+    if (!frame) return true;
 
     this.#currentFrame = frame;
 

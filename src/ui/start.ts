@@ -3,7 +3,7 @@ import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
 import { Unit } from '../entities/unit';
 import { UnitName } from '../entities/unit_name';
-import { container } from '../inversify.config';
+import { container, coordinateConverterFactory } from '../inversify.config';
 import { BackwardParabolaMotion } from '../motions/backward_parabola_motion';
 import { ForwardParabolaMotion } from '../motions/forward_parabola_motion';
 import { StanceMotion } from '../motions/stance_motion';
@@ -12,11 +12,27 @@ import { Point } from '../point';
 import { EntityFactory } from '../factories/entity_factory';
 import { Arena } from '../arenas/arena';
 import { ThrowWebAction } from '../actions/throw_web_action';
+import { ArenaName } from '../arenas/arena_name';
+import { convertJsonToArenaView } from '../converters/convert_json_to_arena_view';
+import { Camera } from '../arenas/common/camera';
+import { createArenaView } from '../factories/create_arena_view';
+import { ParallaxLayerElement } from '../arenas/common/parallax_layer_element';
+import { createCameraElement } from './create_camera_element';
+import { createArenaViewElement } from './create_arena_view_element';
+import { ArenaView } from '../arenas/common/arena_view';
+import { createEntityElement } from './create_entity_element';
+import { CameraController } from '../arenas/common/camera_controller';
 
-const elementDictionary = new Map<Entity, Element>();
+const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
+let cameraElement: Element;
+let arenaElement: Element;
+let cameraPosition: Point;
+
+let refreshingIsStopped: boolean = false;
 
 export async function start() {
+  initDebugTools();
   gameElement = document.getElementById('game')!;
   const entityFactory = container.get<EntityFactory>(nameof<EntityFactory>());
 
@@ -24,81 +40,104 @@ export async function start() {
   arena.entityAdded.subscribe(p => onEntityAdded(p));
   arena.entityRemoved.subscribe(p => onEntityRemoved(p));
 
+  const arenaView = await createArenaView(ArenaName.Waterfron);
+  const coordinateConverter = coordinateConverterFactory(arenaView);
+
+  const camera = new Camera(coordinateConverter, arenaView, 400, 254);
+  camera.positionChanged.subscribe((position, parallaxLayerElements) =>
+    onCameraPositionChanged(position, parallaxLayerElements, camera, arenaView));
+  camera.shiftPosition(0, 0);
+
+  const cameraController = new CameraController(camera, arena, coordinateConverter);
+
   // todo: replace initial point
-  const entity = await entityFactory.createUnit(UnitName.Cyrax, new Point(400, 50));
+  const entity = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 150));
 
-  const coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
+  startRefreshElements();
 
-  // const forwardParabolaMotion1 = new ForwardParabolaMotion(entity, coordinateConverter);
-  // await forwardParabolaMotion1.start();
+  const forwardParabolaMotion1 = new ForwardParabolaMotion(entity, coordinateConverter);
+  await forwardParabolaMotion1.start();
 
   const stanceMotion1 = new StanceMotion(entity, coordinateConverter);
-  setTimeout(() => stanceMotion1.stop(), 2000);
+  setTimeout(() => stanceMotion1.stop(), 500);
   await stanceMotion1.start();
 
-  const action = new ThrowWebAction(entity, coordinateConverter, entityFactory);
-  await action.execute();
-
-  // const backwardParabolaMotion1 = new BackwardParabolaMotion(entity, coordinateConverter);
-  // await backwardParabolaMotion1.start();
-
-  // const upwardMotion1 = new UpwardMotion(entity, coordinateConverter);
-  // await upwardMotion1.start();
-
-  // // const parabolaMotion2 = new ParabolaMotion(entity, coordinateConverter);
-  // // await parabolaMotion2.start();
-
-  // // const upwardMotion2 = new UpwardMotion(entity, coordinateConverter);
-  // // await upwardMotion2.start();
-
-  // entity.leftDirection = true;
-
-  // const stanceMotion4 = new StanceMotion(entity, coordinateConverter);
-  // setTimeout(() => stanceMotion4.stop(), 1000);
-  // await stanceMotion4.start();
-
-  // const backwardParabolaMotion2 = new BackwardParabolaMotion(entity, coordinateConverter);
-  // await backwardParabolaMotion2.start();
+  const backwardParabolaMotion1 = new BackwardParabolaMotion(entity, coordinateConverter);
+  await backwardParabolaMotion1.start();
 
   const stanceMotion2 = new StanceMotion(entity, coordinateConverter);
-  // setTimeout(() => stanceMotion2.stop(), 2000);
+  setTimeout(() => stanceMotion2.stop(), 500);
   await stanceMotion2.start();
 
-  // const forwardParabolaMotion2 = new ForwardParabolaMotion(entity, coordinateConverter);
-  // await forwardParabolaMotion2.start();
+  const backwardParabolaMotion2 = new BackwardParabolaMotion(entity, coordinateConverter);
+  await backwardParabolaMotion2.start();
 
-  // const stanceMotion3 = new StanceMotion(entity, coordinateConverter);
-  // await stanceMotion3.start();
+  const stanceMotion3 = new StanceMotion(entity, coordinateConverter);
+  setTimeout(() => stanceMotion3.stop(), 500);
+  await stanceMotion3.start();
+
+  const backwardParabolaMotion3 = new BackwardParabolaMotion(entity, coordinateConverter);
+  await backwardParabolaMotion3.start();
+
+  const stanceMotion4 = new StanceMotion(entity, coordinateConverter);
+  await stanceMotion4.start();
+}
+
+function onCameraPositionChanged(position: Point,
+                                 parallaxElements: ParallaxLayerElement[],
+                                 camera: Camera,
+                                 arenaView: ArenaView) {
+  cameraElement = createCameraElement(camera);
+  arenaElement = createArenaViewElement(arenaView, parallaxElements);
+  cameraElement.append(arenaElement);
+
+  cameraPosition = position;
 }
 
 function onEntityAdded(entity: Entity) {
-  entity.updated.subscribe(() => refreshGameElement(entity));
+  // addEntityElement(entity);
+  entity.updated.subscribe(() => addEntityElement(entity));
 }
 
 function onEntityRemoved(entity: Entity) {
-  entity.updated.unsubscribe(() => refreshGameElement(entity));
+  entity.updated.unsubscribe(() => addEntityElement(entity));
   elementDictionary.delete(entity);
 }
 
-function refreshGameElement(entity: Entity) {
+function startRefreshElements() {
+  setInterval(() => refreshGameElements(), 10);
+}
+
+function addEntityElement(entity: Entity) {
+  const unitElement = createEntityElement(entity);
+  elementDictionary.set(entity, unitElement);
+}
+
+function refreshGameElements() {
+  if (refreshingIsStopped) return;
+  if (gameElement === null) return;
   // const coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
   // tslint:disable-next-line:max-line-length
   // const position = coordinateConverter.convertCartesianToScreen(entity.transform.cartesianPosition);
   // const boundary = createBoundary(position);
-  const unitElement = createEntityElement(entity);
-  elementDictionary.set(entity, unitElement);
-  if (gameElement !== null) {
-    let elementsString = '';
-    elementDictionary.forEach((val, key) => {
-      elementsString += val.outerHTML;
-    });
-    gameElement.innerHTML = elementsString;
-    // gameElement.appendChild(boundary);
-    // if (gameElement.childNodes.length > 1) {
-    //   gameElement.removeChild(gameElement.firstChild!);
-    // }
-    // gameElement.appendChild(unitElement);
-  }
+  const duplicatedCameraElement = document.createElement('div');
+  duplicatedCameraElement.innerHTML = cameraElement.outerHTML;
+  const duplicatedArenaElement = duplicatedCameraElement.getElementsByClassName('arena-element')[0];
+  elementDictionary.forEach((val, key) => {
+    duplicatedArenaElement.append(val);
+  });
+
+  gameElement.innerHTML = duplicatedCameraElement.innerHTML;
+
+  const currentCameraElement = gameElement.getElementsByClassName('camera-element')[0];
+
+  currentCameraElement.scrollLeft = cameraPosition.x;
+  currentCameraElement.scrollTop = cameraPosition.y;
+  // gameElement.appendChild(boundary);
+  // if (gameElement.childNodes.length > 1) {
+  //   gameElement.removeChild(gameElement.firstChild!);
+  // }
+  // gameElement.appendChild(unitElement);
 }
 
 function createBoundary(position: Point): Element {
@@ -115,29 +154,10 @@ function createBoundary(position: Point): Element {
   return boundaryElement;
 }
 
-function createEntityElement(entity: Entity): Element {
-  const entityElement = document.createElement('div');
+function initDebugTools() {
+  const stopButton = document.getElementById('stopButton') as HTMLButtonElement;
+  stopButton.onclick = () => { refreshingIsStopped = true; };
 
-  entityElement.style.background = `url(${entity.spriteSheet.image}) no-repeat`;
-  entityElement.style.position = 'absolute';
-  if (entity.spriteSheet.currentFrame) {
-    entityElement.style.width = `${entity.spriteSheet.currentFrame.width}px`;
-    entityElement.style.height = `${entity.spriteSheet.currentFrame.height}px`;
-    entityElement.style.backgroundPosition = `-${entity.spriteSheet.currentFrame.imageOffset.x}px -${entity.spriteSheet.currentFrame.imageOffset.y}px`;
-  }
-
-  if (entity.leftDirection) {
-    entityElement.style.transform = 'scaleX(-1)';
-  }
-
-  // unitElement.style.width = '1px';
-  // unitElement.style.height = '1px';
-  // unitElement.style.backgroundColor = 'black';
-
-  // unitElement.style.border = '1px solid red';
-
-  entityElement.style.marginLeft = `${entity.transform.position.x}px`;
-  entityElement.style.marginTop = `${entity.transform.position.y}px`;
-
-  return entityElement;
+  const startButton = document.getElementById('startButton') as HTMLButtonElement;
+  startButton.onclick = () => { refreshingIsStopped = false; };
 }

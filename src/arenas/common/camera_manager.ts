@@ -6,7 +6,7 @@ import { TimerService } from '../../timer_service';
 import { Arena } from '../arena';
 import { Camera } from './camera';
 
-export class CameraController {
+export class CameraManager {
   private readonly limitByX: number = 20;
   private readonly limitByY: number = 70;
   private readonly stepShift: number = 4;

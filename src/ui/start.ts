@@ -21,7 +21,7 @@ import { createCameraElement } from './create_camera_element';
 import { createArenaViewElement } from './create_arena_view_element';
 import { ArenaView } from '../arenas/common/arena_view';
 import { createEntityElement } from './create_entity_element';
-import { CameraController } from '../arenas/common/camera_controller';
+import { CameraManager } from '../arenas/common/camera_manager';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -48,38 +48,48 @@ export async function start() {
     onCameraPositionChanged(position, parallaxLayerElements, camera, arenaView));
   camera.shiftPosition(0, 0);
 
-  const cameraController = new CameraController(camera, arena, coordinateConverter);
+  const cameraController = new CameraManager(camera, arena, coordinateConverter);
 
   // todo: replace initial point
-  const entity = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 150));
+  const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 150));
+  const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
+
+  const stanceMotion21 = new StanceMotion(secondUnit, coordinateConverter);
+  stanceMotion21.start();
 
   startRefreshElements();
 
-  const forwardParabolaMotion1 = new ForwardParabolaMotion(entity, coordinateConverter);
+  const forwardParabolaMotion1 = new ForwardParabolaMotion(firstUnit, coordinateConverter);
   await forwardParabolaMotion1.start();
 
-  const stanceMotion1 = new StanceMotion(entity, coordinateConverter);
+  const forwardParabolaMotion2 = new ForwardParabolaMotion(firstUnit, coordinateConverter);
+  await forwardParabolaMotion2.start();
+
+  const forwardParabolaMotion3 = new ForwardParabolaMotion(firstUnit, coordinateConverter);
+  await forwardParabolaMotion3.start();
+
+  const stanceMotion1 = new StanceMotion(firstUnit, coordinateConverter);
   setTimeout(() => stanceMotion1.stop(), 500);
   await stanceMotion1.start();
 
-  const backwardParabolaMotion1 = new BackwardParabolaMotion(entity, coordinateConverter);
+  const backwardParabolaMotion1 = new BackwardParabolaMotion(firstUnit, coordinateConverter);
   await backwardParabolaMotion1.start();
 
-  const stanceMotion2 = new StanceMotion(entity, coordinateConverter);
+  const stanceMotion2 = new StanceMotion(firstUnit, coordinateConverter);
   setTimeout(() => stanceMotion2.stop(), 500);
   await stanceMotion2.start();
 
-  const backwardParabolaMotion2 = new BackwardParabolaMotion(entity, coordinateConverter);
+  const backwardParabolaMotion2 = new BackwardParabolaMotion(firstUnit, coordinateConverter);
   await backwardParabolaMotion2.start();
 
-  const stanceMotion3 = new StanceMotion(entity, coordinateConverter);
+  const stanceMotion3 = new StanceMotion(firstUnit, coordinateConverter);
   setTimeout(() => stanceMotion3.stop(), 500);
   await stanceMotion3.start();
 
-  const backwardParabolaMotion3 = new BackwardParabolaMotion(entity, coordinateConverter);
+  const backwardParabolaMotion3 = new BackwardParabolaMotion(firstUnit, coordinateConverter);
   await backwardParabolaMotion3.start();
 
-  const stanceMotion4 = new StanceMotion(entity, coordinateConverter);
+  const stanceMotion4 = new StanceMotion(firstUnit, coordinateConverter);
   await stanceMotion4.start();
 }
 

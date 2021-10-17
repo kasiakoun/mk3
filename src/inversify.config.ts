@@ -9,7 +9,6 @@ import { ArenaView } from './arenas/common/arena_view';
 
 export const container = new Container();
 container.bind<Game>(nameof<Game>()).to(Game);
-container.bind<EntityFactory>(nameof<EntityFactory>()).to(EntityFactory);
 
 container.bind<(arenaView: ArenaView)
   => CoordinateConverter>(nameof<CoordinateConverter>())
@@ -20,3 +19,13 @@ container.bind<(arenaView: ArenaView)
          });
 export const coordinateConverterFactory = container.get<(arenaView: ArenaView)
   => CoordinateConverter>(nameof<CoordinateConverter>());
+
+container.bind<(сoordinateConverter: CoordinateConverter)
+  => EntityFactory>(nameof<EntityFactory>())
+         .toFactory<EntityFactory>((context: interfaces.Context) => {
+           return (сoordinateConverter: CoordinateConverter) => {
+             return new EntityFactory(сoordinateConverter);
+           };
+         });
+export const entityFactoryFactory = container.get<(сoordinateConverter: CoordinateConverter)
+  => EntityFactory>(nameof<EntityFactory>());

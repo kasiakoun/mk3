@@ -42,9 +42,7 @@ export abstract class BaseMotion implements Motion {
       ? !spriteSheet.setFrameByPercentage(this.movement.travelledLengthPercentage)
       : !spriteSheet.moveToNextFrame();
 
-    const transform = this.entity.transform;
-    transform.cartesianPosition = calculatedPosition;
-    transform.position = this.coordinateConverter.convertCartesianToScreen(calculatedPosition);
+    this.entity.setCartesianPosition(calculatedPosition);
 
     this.alignPositionByDirection();
     this.alignPositionByOffset();

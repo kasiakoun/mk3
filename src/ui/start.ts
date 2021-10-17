@@ -3,7 +3,7 @@ import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
 import { Unit } from '../entities/unit';
 import { UnitName } from '../entities/unit_name';
-import { container, coordinateConverterFactory } from '../inversify.config';
+import { container, coordinateConverterFactory, entityFactoryFactory } from '../inversify.config';
 import { BackwardParabolaMotion } from '../motions/backward_parabola_motion';
 import { ForwardParabolaMotion } from '../motions/forward_parabola_motion';
 import { StanceMotion } from '../motions/stance_motion';
@@ -34,14 +34,15 @@ let refreshingIsStopped: boolean = false;
 export async function start() {
   initDebugTools();
   gameElement = document.getElementById('game')!;
-  const entityFactory = container.get<EntityFactory>(nameof<EntityFactory>());
+
+  const arenaView = await createArenaView(ArenaName.Waterfron);
+  const coordinateConverter = coordinateConverterFactory(arenaView);
+
+  const entityFactory = entityFactoryFactory(coordinateConverter);
 
   const arena = new Arena(entityFactory);
   arena.entityAdded.subscribe(p => onEntityAdded(p));
   arena.entityRemoved.subscribe(p => onEntityRemoved(p));
-
-  const arenaView = await createArenaView(ArenaName.Waterfron);
-  const coordinateConverter = coordinateConverterFactory(arenaView);
 
   const camera = new Camera(coordinateConverter, arenaView, 400, 254);
   camera.positionChanged.subscribe((position, parallaxLayerElements) =>

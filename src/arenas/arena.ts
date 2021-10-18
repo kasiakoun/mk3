@@ -1,15 +1,18 @@
 import { log } from 'console';
+import { inject, injectable } from 'inversify';
 import { Entity } from '../entities/entity';
 import { Projectile } from '../entities/projectile';
 import { EntityFactory } from '../factories/entity_factory';
 import { Observable } from '../observable';
 
+@injectable()
 export class Arena {
   readonly entities: Entity[] = [];
   readonly entityAdded: Observable<Entity> = new Observable();
   readonly entityRemoved: Observable<Entity> = new Observable();
 
-  constructor(private readonly entityFactory: EntityFactory) {
+  constructor(@inject(nameof<EntityFactory>())
+              private readonly entityFactory: EntityFactory) {
     this.entityFactory.entityCreated.subscribe(p => this.onEntityCreated(p));
   }
 

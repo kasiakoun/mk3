@@ -3,7 +3,7 @@ import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
 import { Unit } from '../entities/unit';
 import { UnitName } from '../entities/unit_name';
-import { container, coordinateConverterFactory, entityFactoryFactory } from '../inversify.config';
+import { container, registerArenaView } from '../inversify.config';
 import { BackwardParabolaMotion } from '../motions/backward_parabola_motion';
 import { ForwardParabolaMotion } from '../motions/forward_parabola_motion';
 import { StanceMotion } from '../motions/stance_motion';
@@ -36,61 +36,64 @@ export async function start() {
   gameElement = document.getElementById('game')!;
 
   const arenaView = await createArenaView(ArenaName.Waterfron);
-  const coordinateConverter = coordinateConverterFactory(arenaView);
+  registerArenaView(arenaView);
 
-  const entityFactory = entityFactoryFactory(coordinateConverter);
+  const entityFactory = container.get<EntityFactory>(nameof<EntityFactory>());
 
-  const arena = new Arena(entityFactory);
+  const arena = container.get<Arena>(nameof<Arena>());
   arena.entityAdded.subscribe(p => onEntityAdded(p));
   arena.entityRemoved.subscribe(p => onEntityRemoved(p));
 
-  const camera = new Camera(coordinateConverter, arenaView, 400, 254);
+  const camera = container.get<Camera>(nameof<Camera>());
   camera.positionChanged.subscribe((position, parallaxLayerElements) =>
     onCameraPositionChanged(position, parallaxLayerElements, camera, arenaView));
   camera.shiftPosition(0, 0);
 
-  const cameraController = new CameraManager(camera, arena, coordinateConverter);
+  container.get<CameraManager>(nameof<CameraManager>());
 
   // todo: replace initial point
   const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 150));
   const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
 
-  const stanceMotion21 = new StanceMotion(secondUnit, coordinateConverter);
+  const stanceMotion21 = new StanceMotion(secondUnit);
   stanceMotion21.start();
 
   startRefreshElements();
 
-  const forwardParabolaMotion1 = new ForwardParabolaMotion(firstUnit, coordinateConverter);
+  const forwardParabolaMotion1 = new ForwardParabolaMotion(firstUnit);
   await forwardParabolaMotion1.start();
 
-  const forwardParabolaMotion2 = new ForwardParabolaMotion(firstUnit, coordinateConverter);
+  const forwardParabolaMotion2 = new ForwardParabolaMotion(firstUnit);
   await forwardParabolaMotion2.start();
 
-  const forwardParabolaMotion3 = new ForwardParabolaMotion(firstUnit, coordinateConverter);
+  const forwardParabolaMotion3 = new ForwardParabolaMotion(firstUnit);
   await forwardParabolaMotion3.start();
 
-  const stanceMotion1 = new StanceMotion(firstUnit, coordinateConverter);
+  const stanceMotion1 = new StanceMotion(firstUnit);
   setTimeout(() => stanceMotion1.stop(), 500);
   await stanceMotion1.start();
 
-  const backwardParabolaMotion1 = new BackwardParabolaMotion(firstUnit, coordinateConverter);
+  const backwardParabolaMotion1 = new BackwardParabolaMotion(firstUnit);
   await backwardParabolaMotion1.start();
 
-  const stanceMotion2 = new StanceMotion(firstUnit, coordinateConverter);
+  const action = new ThrowWebAction(firstUnit, entityFactory);
+  await action.execute();
+
+  const stanceMotion2 = new StanceMotion(firstUnit);
   setTimeout(() => stanceMotion2.stop(), 500);
   await stanceMotion2.start();
 
-  const backwardParabolaMotion2 = new BackwardParabolaMotion(firstUnit, coordinateConverter);
+  const backwardParabolaMotion2 = new BackwardParabolaMotion(firstUnit);
   await backwardParabolaMotion2.start();
 
-  const stanceMotion3 = new StanceMotion(firstUnit, coordinateConverter);
+  const stanceMotion3 = new StanceMotion(firstUnit);
   setTimeout(() => stanceMotion3.stop(), 500);
   await stanceMotion3.start();
 
-  const backwardParabolaMotion3 = new BackwardParabolaMotion(firstUnit, coordinateConverter);
+  const backwardParabolaMotion3 = new BackwardParabolaMotion(firstUnit);
   await backwardParabolaMotion3.start();
 
-  const stanceMotion4 = new StanceMotion(firstUnit, coordinateConverter);
+  const stanceMotion4 = new StanceMotion(firstUnit);
   await stanceMotion4.start();
 }
 

@@ -1,3 +1,4 @@
+import { inject, injectable } from 'inversify';
 import { CoordinateConverter } from '../../converters/coordinate_converter';
 import { Observable } from '../../observable';
 import { Point } from '../../point';
@@ -5,8 +6,10 @@ import { ArenaView } from './arena_view';
 import { Parallax } from './parallax';
 import { ParallaxLayerElement } from './parallax_layer_element';
 
+@injectable()
 export class Camera {
-  private readonly parallax: Parallax;
+  readonly width: number = 400;
+  readonly height: number = 254;
   readonly positionChanged: Observable<Point, ParallaxLayerElement[]> = new Observable();
 
   #cartesianPosition: Point;
@@ -32,11 +35,12 @@ export class Camera {
     this.position = screenPosition;
   }
 
-  constructor(readonly coordinateConverter: CoordinateConverter,
+  constructor(@inject(nameof<CoordinateConverter>())
+              readonly coordinateConverter: CoordinateConverter,
+              @inject(nameof<ArenaView>())
               readonly arenaView: ArenaView,
-              readonly width: number,
-              readonly height: number) {
-    this.parallax = new Parallax(arenaView);
+              @inject(nameof<Parallax>())
+              readonly parallax: Parallax) {
     this.cartesianPosition = new Point(0, 0);
   }
 

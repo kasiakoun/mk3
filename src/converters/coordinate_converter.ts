@@ -4,7 +4,7 @@ import { Point } from '../point';
 
 @injectable()
 export class CoordinateConverter {
-  constructor (private readonly arenaView: ArenaView) {}
+  constructor (@inject(nameof<ArenaView>())private readonly arenaView: ArenaView) {}
 
   convertCartesianToScreen(caresianPoint: Point): Point {
     const screenX = caresianPoint.x;

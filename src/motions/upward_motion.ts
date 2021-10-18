@@ -6,10 +6,8 @@ import { TimerService } from '../timer_service';
 import { FiniteMotion } from './finite_motion';
 
 export class UpwardMotion extends FiniteMotion {
-  constructor(entity: Entity,
-              coordinateConverter: CoordinateConverter) {
+  constructor(entity: Entity) {
     super(entity,
-          coordinateConverter,
           AnimationName.JumpUpward,
           // todo: use TimerService from Entity
           new TimerService(),

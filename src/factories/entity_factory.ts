@@ -1,4 +1,4 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
 import { Projectile } from '../entities/projectile';
@@ -11,9 +11,10 @@ import { createProjectileSpriteSheet, createSpriteSheet } from './sprite_sheet_f
 
 @injectable()
 export class EntityFactory {
-  readonly entityCreated: Observable<Entity> = new Observable();
+  @inject(nameof<CoordinateConverter>())
+  private readonly coordinateConverter: CoordinateConverter;
 
-  constructor(private readonly coordinateConverter: CoordinateConverter) {}
+  readonly entityCreated: Observable<Entity> = new Observable();
 
   async createUnit(unitName: UnitName, cartesianPosition: Point): Promise<Entity> {
     const spriteSheet = await createSpriteSheet(unitName);

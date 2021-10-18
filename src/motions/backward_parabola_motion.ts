@@ -8,14 +8,12 @@ import { TimerService } from '../timer_service';
 import { FiniteMotion } from './finite_motion';
 
 export class BackwardParabolaMotion extends FiniteMotion {
-  constructor(entity: Entity,
-              coordinateConverter: CoordinateConverter) {
+  constructor(entity: Entity) {
     const animation = entity.leftDirection
       ? new ForwardParabolaMovement()
       : new BackwardParabolaMovement();
     const isReverseAnimation = !entity.leftDirection;
     super(entity,
-          coordinateConverter,
           AnimationName.ParabolaJump,
           // todo: use TimerService from Entity
           new TimerService(),

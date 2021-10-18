@@ -1,22 +1,24 @@
 import { AnimationName } from '../animations/animation_name';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
+import { container } from '../inversify.config';
 import { Movement } from '../movements/movement';
 import { Point } from '../point';
 import { TimerService } from '../timer_service';
 import { Motion } from './motion';
 
 export abstract class BaseMotion implements Motion {
+  protected readonly coordinateConverter: CoordinateConverter;
   protected isStopped: boolean;
   protected animationFinished: boolean;
 
   constructor(protected readonly entity: Entity,
-              protected readonly coordinateConverter: CoordinateConverter,
               private readonly animationName: AnimationName,
               protected readonly timerService: TimerService,
               protected readonly movement: Movement,
               protected readonly isReverseAnimation: boolean,
               protected readonly changeByPassedPercetange: boolean) {
+    this.coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
   }
 
   start(): Promise<unknown> {

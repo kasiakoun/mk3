@@ -1,11 +1,14 @@
+import { inject, injectable } from 'inversify';
 import { Point } from '../../point';
 import { ArenaLayer } from './arena_layer';
 import { ArenaLayerElement } from './arena_layer_element';
 import { ArenaView } from './arena_view';
 import { ParallaxLayerElement } from './parallax_layer_element';
 
+@injectable()
 export class Parallax {
-  constructor(private readonly arenaView: ArenaView) {}
+  constructor(@inject(nameof<ArenaView>())
+              private readonly arenaView: ArenaView) {}
 
   getParallaxElementPosition(layer: ArenaLayer, element: ArenaLayerElement, offest: Point): Point {
     const x = element.position.x + ((1 - layer.speed) * offest.x);

@@ -1,3 +1,4 @@
+import { inject, injectable } from 'inversify';
 import { CoordinateConverter } from '../../converters/coordinate_converter';
 import { Delta } from '../../delta';
 import { Entity } from '../../entities/entity';
@@ -6,6 +7,7 @@ import { TimerService } from '../../timer_service';
 import { Arena } from '../arena';
 import { Camera } from './camera';
 
+@injectable()
 export class CameraManager {
   private readonly limitByX: number = 20;
   private readonly limitByY: number = 70;
@@ -14,8 +16,11 @@ export class CameraManager {
   private readonly units: Unit[] = [];
   private readonly timer: TimerService = new TimerService();
 
-  constructor(private readonly camera: Camera,
+  constructor(@inject(nameof<Camera>())
+              private readonly camera: Camera,
+              @inject(nameof<Arena>())
               private readonly arena: Arena,
+              @inject(nameof<CoordinateConverter>())
               private readonly coordinateConverter: CoordinateConverter) {
     this.arena.entityAdded.subscribe(p => this.onUnitAdded(p));
     this.timer.start(() => this.update());

@@ -6,10 +6,8 @@ import { TimerService } from '../timer_service';
 import { InfiniteMotion } from './infinite_motion';
 
 export class LinearMotion extends InfiniteMotion {
-  constructor(entity: Entity,
-              coordinateConverter: CoordinateConverter) {
+  constructor(entity: Entity) {
     super(entity,
-          coordinateConverter,
           AnimationName.Fly,
           // todo: use TimerService from Entity
           new TimerService(),

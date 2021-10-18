@@ -9,7 +9,6 @@ import { EntityFactory } from '../factories/entity_factory';
 
 export class ThrowWebAction {
   constructor (private readonly entity: Entity,
-               private readonly coordinateConverter: CoordinateConverter,
                private readonly entityFactory: EntityFactory) {}
 
   async execute() {
@@ -17,10 +16,10 @@ export class ThrowWebAction {
     const projectile = await this.entityFactory
       .createProjectile(ProjectileName.CyraxWeb, cartesianPosition);
 
-    const linearMotion = new LinearMotion(projectile, this.coordinateConverter);
+    const linearMotion = new LinearMotion(projectile);
     linearMotion.start();
 
-    const throwMotion = new ThrowMotion(this.entity, this.coordinateConverter);
+    const throwMotion = new ThrowMotion(this.entity);
     await throwMotion.start();
   }
 }

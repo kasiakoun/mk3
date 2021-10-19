@@ -22,6 +22,7 @@ import { createArenaViewElement } from './create_arena_view_element';
 import { ArenaView } from '../arenas/common/arena_view';
 import { createEntityElement } from './create_entity_element';
 import { CameraManager } from '../arenas/common/camera_manager';
+import { MoveEnabler } from '../movements/move_enabler';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -92,6 +93,15 @@ export async function start() {
 
   const backwardParabolaMotion3 = new BackwardParabolaMotion(firstUnit);
   await backwardParabolaMotion3.start();
+
+  const backwardParabolaMotion4 = new BackwardParabolaMotion(firstUnit);
+  await backwardParabolaMotion4.start();
+
+  const backwardParabolaMotion5 = new BackwardParabolaMotion(firstUnit);
+  await backwardParabolaMotion5.start();
+
+  const backwardParabolaMotion6 = new BackwardParabolaMotion(firstUnit);
+  await backwardParabolaMotion6.start();
 
   const stanceMotion4 = new StanceMotion(firstUnit);
   await stanceMotion4.start();

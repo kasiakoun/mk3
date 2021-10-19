@@ -35,11 +35,11 @@ export class CameraManager {
   private update() {
     if (this.units.length === 0) return;
 
-    const firstUnitDelta = this.getUnityDelta(this.units[0]);
+    const firstUnitDelta = this.getUnitDelta(this.units[0]);
     const maxDelta: Delta = Object.assign({}, firstUnitDelta);
 
     for (const unit of this.units) {
-      const unitDelta = this.getUnityDelta(unit);
+      const unitDelta = this.getUnitDelta(unit);
       if (maxDelta.left > unitDelta.left) maxDelta.left = unitDelta.left;
       if (maxDelta.top > unitDelta.top) maxDelta.top = unitDelta.top;
       if (maxDelta.right < unitDelta.right) maxDelta.right = unitDelta.right;
@@ -68,15 +68,42 @@ export class CameraManager {
     return 0;
   }
 
-  private getUnityDelta(unit: Unit) {
+  isAllowChangePositionByX(unit: Unit, positionX: number) {
+    const unitIndex = this.units.indexOf(unit);
+    if (unitIndex <= -1) throw new Error('Unit was not found in the units array');
+
+    const maxFrameWidth = unit.spriteSheet.currentAnimation.maxFrameWidth;
+    const leftDeltaUnit = this.getLeftDelta(positionX);
+    const rightDeltaUnit = this.getRightDelta(positionX, maxFrameWidth);
+
+    if (leftDeltaUnit > 0 && rightDeltaUnit < 0) {
+      return true;
+    }
+
+    const borderSpace = 3;
+    const canChange = this.units.every((p, i) => {
+      if (i === unitIndex) return true;
+
+      const anotherUnitDelta = this.getUnitDelta(p);
+
+      if (leftDeltaUnit <= 0) return anotherUnitDelta.right < -5;
+      if (rightDeltaUnit >= 0) return anotherUnitDelta.left > 5;
+
+      return false;
+    });
+
+    return canChange;
+  }
+
+  private getUnitDelta(unit: Unit) {
     const monitorPosition = this.coordinateConverter
       .convertCartesianToScreen(unit.transform.cartesianPosition);
     const maxFrameWidth = unit.spriteSheet.currentAnimation.maxFrameWidth;
     const maxFrameHeight = unit.spriteSheet.currentAnimation.maxFrameHeight;
 
-    const leftDelta = this.getLeftDelta(unit.transform.position.x);
+    const leftDelta = this.getLeftDelta(monitorPosition.x);
     const rightDelta = this.getRightDelta(monitorPosition.x, maxFrameWidth);
-    const topDelta = this.getTopDelta(unit.transform.position.y);
+    const topDelta = this.getTopDelta(monitorPosition.y);
     const bottomDelta = this.getBottomDelta(monitorPosition.y, maxFrameHeight);
 
     return new Delta(leftDelta, topDelta, rightDelta, bottomDelta);

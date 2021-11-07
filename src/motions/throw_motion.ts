@@ -9,8 +9,7 @@ export class ThrowMotion extends FiniteMotion {
   constructor(entity: Entity) {
     super(entity,
           AnimationName.Throw,
-          // todo: use TimerService from Entity
-          new TimerService(),
+          entity.timerService,
           new NoActionMovement(),
           false,
           false);

@@ -9,7 +9,7 @@ import { Motion } from './motion';
 
 export abstract class BaseMotion implements Motion {
   protected readonly coordinateConverter: CoordinateConverter;
-  protected isStopped: boolean;
+  protected isStopped: boolean = false;
   protected animationFinished: boolean;
 
   constructor(protected readonly entity: Entity,
@@ -34,6 +34,7 @@ export abstract class BaseMotion implements Motion {
 
   stop() {
     this.isStopped = true;
+    this.timerService.stop();
   }
 
   protected move(start: Point, end: Point, resolve: (value: unknown) => void): Point {

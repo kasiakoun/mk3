@@ -15,8 +15,7 @@ export class ForwardParabolaMotion extends FiniteMotion {
     const isReverseAnimation = entity.leftDirection;
     super(entity,
           AnimationName.ParabolaJump,
-          // todo: use TimerService from Entity
-          new TimerService(),
+          entity.timerService,
           animation,
           isReverseAnimation,
           true);

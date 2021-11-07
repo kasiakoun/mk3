@@ -9,8 +9,7 @@ export class LinearMotion extends InfiniteMotion {
   constructor(entity: Entity) {
     super(entity,
           AnimationName.Fly,
-          // todo: use TimerService from Entity
-          new TimerService(),
+          entity.timerService,
           new LinearMovement(),
           false,
           false);

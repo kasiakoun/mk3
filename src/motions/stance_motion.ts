@@ -9,8 +9,7 @@ export class StanceMotion extends InfiniteMotion {
   constructor(entity: Entity) {
     super(entity,
           AnimationName.Stance,
-          // todo: use TimerService from Entity
-          new TimerService(),
+          entity.timerService,
           new NoActionMovement(),
           false,
           false);

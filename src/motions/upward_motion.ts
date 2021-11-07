@@ -9,8 +9,7 @@ export class UpwardMotion extends FiniteMotion {
   constructor(entity: Entity) {
     super(entity,
           AnimationName.JumpUpward,
-          // todo: use TimerService from Entity
-          new TimerService(),
+          entity.timerService,
           new UpwardMovement(),
           false,
           true);

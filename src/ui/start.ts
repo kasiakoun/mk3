@@ -23,6 +23,9 @@ import { ArenaView } from '../arenas/common/arena_view';
 import { createEntityElement } from './create_entity_element';
 import { CameraManager } from '../arenas/common/camera_manager';
 import { MoveEnabler } from '../movements/move_enabler';
+import { PlayerInput } from '../players/player_input';
+import { InputEvent } from '../players/input_event';
+import { InputEventType } from '../players/input_event_type';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -31,6 +34,13 @@ let arenaElement: Element;
 let cameraPosition: Point;
 
 let refreshingIsStopped: boolean = false;
+
+const mappedInputEvents = new Map<string, InputEvent>();
+mappedInputEvents.set('ArrowLeft', InputEvent.Backward);
+mappedInputEvents.set('ArrowUp', InputEvent.Upward);
+mappedInputEvents.set('ArrowRight', InputEvent.Forward);
+mappedInputEvents.set('ArrowDown', InputEvent.Downward);
+mappedInputEvents.set('Numpad3', InputEvent.Lowpunch);
 
 export async function start() {
   initDebugTools();
@@ -56,55 +66,74 @@ export async function start() {
   const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 150));
   const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
 
-  const stanceMotion21 = new StanceMotion(secondUnit);
-  stanceMotion21.start();
+  const firstPlayerInput = new PlayerInput(firstUnit);
+
+  window.addEventListener('keydown', (e) => {
+    e.preventDefault();
+    const inputType = mappedInputEvents.get(e.code);
+    if (!inputType) return;
+
+    // todo: create loop to check keyboard state
+    firstPlayerInput.handleInput(inputType, InputEventType.Down);
+  });
+
+  window.addEventListener('keyup', (e) => {
+    e.preventDefault();
+    const inputType = mappedInputEvents.get(e.code);
+    if (!inputType) return;
+
+    firstPlayerInput.handleInput(inputType, InputEventType.Up);
+  });
+
+  // const stanceMotion21 = new StanceMotion(secondUnit);
+  // stanceMotion21.start();
 
   startRefreshElements();
 
-  const forwardParabolaMotion1 = new ForwardParabolaMotion(firstUnit);
-  await forwardParabolaMotion1.start();
+  // const forwardParabolaMotion1 = new ForwardParabolaMotion(firstUnit);
+  // await forwardParabolaMotion1.start();
 
-  const forwardParabolaMotion2 = new ForwardParabolaMotion(firstUnit);
-  await forwardParabolaMotion2.start();
+  // const forwardParabolaMotion2 = new ForwardParabolaMotion(firstUnit);
+  // await forwardParabolaMotion2.start();
 
-  const forwardParabolaMotion3 = new ForwardParabolaMotion(firstUnit);
-  await forwardParabolaMotion3.start();
+  // const forwardParabolaMotion3 = new ForwardParabolaMotion(firstUnit);
+  // await forwardParabolaMotion3.start();
 
-  const stanceMotion1 = new StanceMotion(firstUnit);
-  setTimeout(() => stanceMotion1.stop(), 500);
-  await stanceMotion1.start();
+  // const stanceMotion1 = new StanceMotion(firstUnit);
+  // setTimeout(() => stanceMotion1.stop(), 500);
+  // await stanceMotion1.start();
 
-  const backwardParabolaMotion1 = new BackwardParabolaMotion(firstUnit);
-  await backwardParabolaMotion1.start();
+  // const backwardParabolaMotion1 = new BackwardParabolaMotion(firstUnit);
+  // await backwardParabolaMotion1.start();
 
-  const action = new ThrowWebAction(firstUnit, entityFactory);
-  await action.execute();
+  // const action = new ThrowWebAction(firstUnit, entityFactory);
+  // await action.execute();
 
-  const stanceMotion2 = new StanceMotion(firstUnit);
-  setTimeout(() => stanceMotion2.stop(), 500);
-  await stanceMotion2.start();
+  // const stanceMotion2 = new StanceMotion(firstUnit);
+  // setTimeout(() => stanceMotion2.stop(), 500);
+  // await stanceMotion2.start();
 
-  const backwardParabolaMotion2 = new BackwardParabolaMotion(firstUnit);
-  await backwardParabolaMotion2.start();
+  // const backwardParabolaMotion2 = new BackwardParabolaMotion(firstUnit);
+  // await backwardParabolaMotion2.start();
 
-  const stanceMotion3 = new StanceMotion(firstUnit);
-  setTimeout(() => stanceMotion3.stop(), 500);
-  await stanceMotion3.start();
+  // const stanceMotion3 = new StanceMotion(firstUnit);
+  // setTimeout(() => stanceMotion3.stop(), 500);
+  // await stanceMotion3.start();
 
-  const backwardParabolaMotion3 = new BackwardParabolaMotion(firstUnit);
-  await backwardParabolaMotion3.start();
+  // const backwardParabolaMotion3 = new BackwardParabolaMotion(firstUnit);
+  // await backwardParabolaMotion3.start();
 
-  const backwardParabolaMotion4 = new BackwardParabolaMotion(firstUnit);
-  await backwardParabolaMotion4.start();
+  // const backwardParabolaMotion4 = new BackwardParabolaMotion(firstUnit);
+  // await backwardParabolaMotion4.start();
 
-  const backwardParabolaMotion5 = new BackwardParabolaMotion(firstUnit);
-  await backwardParabolaMotion5.start();
+  // const backwardParabolaMotion5 = new BackwardParabolaMotion(firstUnit);
+  // await backwardParabolaMotion5.start();
 
-  const backwardParabolaMotion6 = new BackwardParabolaMotion(firstUnit);
-  await backwardParabolaMotion6.start();
+  // const backwardParabolaMotion6 = new BackwardParabolaMotion(firstUnit);
+  // await backwardParabolaMotion6.start();
 
-  const stanceMotion4 = new StanceMotion(firstUnit);
-  await stanceMotion4.start();
+  // const stanceMotion4 = new StanceMotion(firstUnit);
+  // await stanceMotion4.start();
 }
 
 function onCameraPositionChanged(position: Point,

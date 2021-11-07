@@ -3,7 +3,7 @@ import { MoveEnabler } from '../movements/move_enabler';
 import { Point } from '../point';
 import { Entity } from './entity';
 
-export class Unit extends Entity {
+export abstract class Unit extends Entity {
   private readonly moveEnabler: MoveEnabler;
 
   constructor(spriteSheet: SpriteSheet,

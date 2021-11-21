@@ -1,16 +1,14 @@
 import { AnimationName } from '../animations/animation_name';
-import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
-import { LinearMovement } from '../movements/linear_movement';
-import { TimerService } from '../timer_service';
+import { WebFlyingMovement } from '../movements/linear_movements/web_flying_movement';
 import { InfiniteMotion } from './infinite_motion';
 
-export class LinearMotion extends InfiniteMotion {
+export class WebFlyingMotion extends InfiniteMotion {
   constructor(entity: Entity) {
     super(entity,
           AnimationName.Fly,
           entity.timerService,
-          new LinearMovement(),
+          new WebFlyingMovement(),
           false,
           false);
   }

@@ -4,4 +4,5 @@ export enum AnimationName {
   Stance = 'stance',
   Throw = 'throw',
   Fly = 'fly',
+  Walk = 'walk',
 }

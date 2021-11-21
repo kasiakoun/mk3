@@ -1,14 +1,15 @@
-import { Point } from '../point';
-import { Movement } from './movement';
+import { Point } from '../../point';
+import { Movement } from '../movement';
 
-export class LinearMovement implements Movement {
+export abstract class LinearMovement implements Movement {
   private travelledLength: number = 0;
-  private readonly step: number = 3.730;
-  private readonly k: number = -0.098;
 
   get travelledLengthPercentage(): number {
     return 0;
   }
+
+  constructor(private readonly k: number,
+              private readonly step: number) {}
 
   move(startPosition: Point, endPosition: Point): Point {
     this.travelledLength += this.step;

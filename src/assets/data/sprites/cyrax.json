@@ -90,7 +90,7 @@
       ]
     },
     {
-      "name": "walk_forward",
+      "name": "walk",
       "repeatAnimation": true,
       "frames": [
         {
@@ -100,166 +100,79 @@
           "height": 137,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 104,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 136,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 199,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 136,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 294,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 135,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 389,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 135,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 484,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 135,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 579,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 135,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 674,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 135,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         },
         {
           "x": 769,
           "y": 2799,
           "width": 86,
-          "height": 137,
+          "height": 135,
           "offsetX": 0,
           "offsetY": 0,
-          "duplicates": 0
-        }
-      ]
-    },
-    {
-      "name": "walk_backward",
-      "repeatAnimation": true,
-      "frames": [
-        {
-          "x": 769,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 674,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 579,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 484,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 389,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 294,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 199,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 104,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
-        },
-        {
-          "x": 9,
-          "y": 2799,
-          "width": 86,
-          "height": 137,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "duplicates": 5
         }
       ]
     },

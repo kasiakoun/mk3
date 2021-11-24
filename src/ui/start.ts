@@ -26,6 +26,7 @@ import { MoveEnabler } from '../movements/move_enabler';
 import { PlayerInput } from '../players/player_input';
 import { InputEvent } from '../players/input_event';
 import { InputEventType } from '../players/input_event_type';
+import { GameTimer } from '../game_timer';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -40,10 +41,11 @@ mappedInputEvents.set('ArrowLeft', InputEvent.Backward);
 mappedInputEvents.set('ArrowUp', InputEvent.Upward);
 mappedInputEvents.set('ArrowRight', InputEvent.Forward);
 mappedInputEvents.set('ArrowDown', InputEvent.Downward);
-mappedInputEvents.set('Numpad3', InputEvent.Lowpunch);
+mappedInputEvents.set('Numpad3', InputEvent.Lowkick);
 
 export async function start() {
   initDebugTools();
+  const gameTimer = container.get<GameTimer>(nameof<GameTimer>());
   gameElement = document.getElementById('game')!;
 
   const arenaView = await createArenaView(ArenaName.Waterfron);
@@ -63,18 +65,18 @@ export async function start() {
   container.get<CameraManager>(nameof<CameraManager>());
 
   // todo: replace initial point
-  const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(300, 150));
-  const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
+  const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(100, 150));
+  // const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
 
   const firstPlayerInput = new PlayerInput(firstUnit);
+  gameTimer.updated.subscribe(() => firstPlayerInput.handleInput());
 
   window.addEventListener('keydown', (e) => {
     e.preventDefault();
     const inputType = mappedInputEvents.get(e.code);
     if (!inputType) return;
 
-    // todo: create loop to check keyboard state
-    firstPlayerInput.handleInput(inputType, InputEventType.Down);
+    firstPlayerInput.fillchangeInputState(inputType, InputEventType.Down);
   });
 
   window.addEventListener('keyup', (e) => {
@@ -82,7 +84,7 @@ export async function start() {
     const inputType = mappedInputEvents.get(e.code);
     if (!inputType) return;
 
-    firstPlayerInput.handleInput(inputType, InputEventType.Up);
+    firstPlayerInput.fillchangeInputState(inputType, InputEventType.Up);
   });
 
   // const stanceMotion21 = new StanceMotion(secondUnit);

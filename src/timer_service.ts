@@ -1,6 +1,7 @@
 export class TimerService {
   private timer?: NodeJS.Timeout;
-  private readonly refreshTimeMs: number = 17;
+
+  constructor(private readonly refreshTimeMs: number = 17) {}
 
   start(handler: (...args: any[]) => void) {
     this.timer = setInterval(handler, this.refreshTimeMs);

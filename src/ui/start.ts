@@ -27,6 +27,7 @@ import { PlayerInput } from '../players/player_input';
 import { InputEvent } from '../players/input_event';
 import { InputEventType } from '../players/input_event_type';
 import { GameTimer } from '../game_timer';
+import { CollisionDetector } from '../entities/collision/collision_detector';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -57,6 +58,8 @@ export async function start() {
   arena.entityAdded.subscribe(p => onEntityAdded(p));
   arena.entityRemoved.subscribe(p => onEntityRemoved(p));
 
+  container.get<CollisionDetector>(nameof<CollisionDetector>());
+
   const camera = container.get<Camera>(nameof<Camera>());
   camera.positionChanged.subscribe((position, parallaxLayerElements) =>
     onCameraPositionChanged(position, parallaxLayerElements, camera, arenaView));
@@ -66,7 +69,7 @@ export async function start() {
 
   // todo: replace initial point
   const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(100, 150));
-  // const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
+  const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
 
   const firstPlayerInput = new PlayerInput(firstUnit);
   gameTimer.updated.subscribe(() => firstPlayerInput.handleInput());

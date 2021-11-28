@@ -3,6 +3,7 @@ import { CoordinateConverter } from '../converters/coordinate_converter';
 import { container } from '../inversify.config';
 import { Observable } from '../observable';
 import { Point } from '../point';
+import { Rectangle } from '../rectangle';
 import { TimerService } from '../timer_service';
 import { Transform } from '../transform';
 import { StateBase } from './states/state_base';
@@ -11,19 +12,15 @@ export class Entity {
   protected readonly coordinateConverter: CoordinateConverter;
 
   readonly #transform: Transform;
-  readonly #updated: Observable = new Observable();
   #currentState: StateBase;
 
   readonly timerService: TimerService = new TimerService();
+  readonly updated: Observable<Entity> = new Observable();
 
   leftDirection: boolean = false;
 
   get transform(): Transform {
     return this.#transform;
-  }
-
-  get updated(): Observable {
-    return this.#updated;
   }
 
   get name(): string {
@@ -51,5 +48,17 @@ export class Entity {
   setCartesianPosition(cartesianPosition: Point) {
     this.#transform.cartesianPosition = cartesianPosition;
     this.#transform.position = this.coordinateConverter.convertCartesianToScreen(cartesianPosition);
+  }
+
+  getRectangle(): Rectangle {
+    const monitorPosition = this.coordinateConverter
+      .convertCartesianToScreen(this.transform.cartesianPosition);
+
+    const left = monitorPosition.x;
+    const right = left + this.spriteSheet.currentAnimation.maxFrameWidth;
+    const top = monitorPosition.y;
+    const bottom = top + this.spriteSheet.currentAnimation.maxFrameHeight;
+
+    return new Rectangle(left, top, right, bottom);
   }
 }

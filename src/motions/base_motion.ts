@@ -55,7 +55,7 @@ export abstract class BaseMotion implements Motion {
       resolve(undefined);
     }
 
-    this.entity.updated.fire();
+    this.entity.updated.fire(this.entity);
 
     return calculatedPosition;
   }

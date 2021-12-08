@@ -10,7 +10,6 @@ import { Motion } from './motion';
 export abstract class BaseMotion implements Motion {
   protected readonly coordinateConverter: CoordinateConverter;
   protected isStopped: boolean = false;
-  protected animationFinished: boolean;
 
   constructor(protected readonly entity: Entity,
               private readonly animationName: AnimationName,
@@ -40,9 +39,7 @@ export abstract class BaseMotion implements Motion {
     const calculatedPosition = this.movement.move(start, end);
 
     const spriteSheet = this.entity.spriteSheet;
-    this.animationFinished = this.changeByPassedPercetange
-      ? !spriteSheet.setFrameByPercentage(this.movement.travelledLengthPercentage)
-      : !spriteSheet.moveToNextFrame();
+    spriteSheet.moveToNextFrame();
 
     this.entity.setCartesianPosition(calculatedPosition);
 

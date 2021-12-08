@@ -14,7 +14,6 @@ export class ForwardWalkMotion extends InfiniteMotion {
           AnimationName.Walk,
           entity.timerService,
           movement,
-          isReverseAnimation,
-          false);
+          isReverseAnimation);
   }
 }

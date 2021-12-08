@@ -29,16 +29,6 @@ export abstract class AnimationFrameStrategy {
     return frames[nextFrameIndex];
   }
 
-  protected getNextFrameByPercentageFromArray(percentage: number, frames: Frame[]): Frame {
-    const partFramesLength = percentage * frames.length;
-
-    const frameIndex = Math.round(partFramesLength) - 1;
-
-    if (frameIndex >= 0) return frames[frameIndex];
-
-    return undefined!;
-  }
-
   protected getRightCornerOffsetFromArray(frames: Frame[]): number {
     const currentFrame = this.spriteSheet.currentFrame;
 
@@ -73,6 +63,5 @@ export abstract class AnimationFrameStrategy {
   }
 
   abstract getNextFrame(): Frame;
-  abstract getNextFrameByPercentage(percentage: number): Frame;
   abstract getRightCornerOffset(): number;
 }

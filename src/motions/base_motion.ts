@@ -16,8 +16,7 @@ export abstract class BaseMotion implements Motion {
               private readonly animationName: AnimationName,
               protected readonly timerService: TimerService,
               protected readonly movement: Movement,
-              protected readonly isReverseAnimation: boolean,
-              protected readonly changeByPassedPercetange: boolean) {
+              protected readonly isReverseAnimation: boolean) {
     this.coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
   }
 

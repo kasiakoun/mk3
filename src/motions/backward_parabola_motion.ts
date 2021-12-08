@@ -17,7 +17,6 @@ export class BackwardParabolaMotion extends FiniteMotion {
           AnimationName.ParabolaJump,
           entity.timerService,
           animation,
-          isReverseAnimation,
-          true);
+          isReverseAnimation);
   }
 }

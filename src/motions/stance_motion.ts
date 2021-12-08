@@ -11,7 +11,6 @@ export class StanceMotion extends InfiniteMotion {
           AnimationName.Stance,
           entity.timerService,
           new NoActionMovement(),
-          false,
           false);
   }
 }

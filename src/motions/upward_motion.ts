@@ -11,7 +11,6 @@ export class UpwardMotion extends FiniteMotion {
           AnimationName.JumpUpward,
           entity.timerService,
           new UpwardMovement(),
-          false,
-          true);
+          false);
   }
 }

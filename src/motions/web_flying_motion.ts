@@ -9,7 +9,6 @@ export class WebFlyingMotion extends InfiniteMotion {
           AnimationName.Fly,
           entity.timerService,
           new WebFlyingMovement(),
-          false,
           false);
   }
 }

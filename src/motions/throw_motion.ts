@@ -11,7 +11,6 @@ export class ThrowMotion extends FiniteMotion {
           AnimationName.Throw,
           entity.timerService,
           new NoActionMovement(),
-          false,
           false);
   }
 }

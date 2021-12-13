@@ -12,6 +12,7 @@ import { Parallax } from './arenas/common/parallax';
 import { CameraManager } from './arenas/common/camera_manager';
 import { GameTimer } from './game_timer';
 import { CollisionDetector } from './entities/collision/collision_detector';
+import { CollisionResolver } from './entities/collision/collision_resolver';
 
 export const container = new Container();
 container.bind<Game>(nameof<Game>()).to(Game).inSingletonScope();
@@ -25,6 +26,8 @@ container.bind<CameraManager>(nameof<CameraManager>()).to(CameraManager).inSingl
 container.bind<GameTimer>(nameof<GameTimer>()).to(GameTimer).inSingletonScope();
 container.bind<CollisionDetector>(nameof<CollisionDetector>())
          .to(CollisionDetector).inSingletonScope();
+container.bind<CollisionResolver>(nameof<CollisionResolver>())
+         .to(CollisionResolver).inSingletonScope();
 
 export function registerArenaView(arenaView: ArenaView) {
   container.bind<ArenaView>(nameof<ArenaView>()).toConstantValue(arenaView);

@@ -36,10 +36,12 @@ export class CollisionDetector {
     const entityCoordinates1 = entity1.getRectangle();
     const entityCoordinates2 = entity2.getRectangle();
 
-    if (entityCoordinates1.bottom < entityCoordinates2.top) return false;
-    if (entityCoordinates1.top > entityCoordinates2.bottom) return false;
-    if (entityCoordinates1.right < entityCoordinates2.left) return false;
-    if (entityCoordinates1.left > entityCoordinates2.right) return false;
+    const delta = 25;
+
+    if (entityCoordinates1.bottom < entityCoordinates2.top + delta) return false;
+    if (entityCoordinates1.top > entityCoordinates2.bottom - delta) return false;
+    if (entityCoordinates1.right < entityCoordinates2.left + delta) return false;
+    if (entityCoordinates1.left > entityCoordinates2.right - delta) return false;
 
     return true;
   }

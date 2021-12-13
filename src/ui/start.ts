@@ -27,7 +27,7 @@ import { PlayerInput } from '../players/player_input';
 import { InputEvent } from '../players/input_event';
 import { InputEventType } from '../players/input_event_type';
 import { GameTimer } from '../game_timer';
-import { CollisionDetector } from '../entities/collision/collision_detector';
+import { CollisionResolver } from '../entities/collision/collision_resolver';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -58,7 +58,7 @@ export async function start() {
   arena.entityAdded.subscribe(p => onEntityAdded(p));
   arena.entityRemoved.subscribe(p => onEntityRemoved(p));
 
-  container.get<CollisionDetector>(nameof<CollisionDetector>());
+  container.get<CollisionResolver>(nameof<CollisionResolver>());
 
   const camera = container.get<Camera>(nameof<Camera>());
   camera.positionChanged.subscribe((position, parallaxLayerElements) =>

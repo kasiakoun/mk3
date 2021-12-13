@@ -14,6 +14,7 @@ export abstract class Unit extends Entity {
 
   setCartesianPosition(cartesianPosition: Point) {
     const duplicatedCartesianPosition = Object.assign({}, cartesianPosition);
+    duplicatedCartesianPosition.x += this.transform.offsetX;
 
     if (!this.moveEnabler.canMoveByX(duplicatedCartesianPosition.x)) {
       duplicatedCartesianPosition.x = this.transform.cartesianPosition.x;

@@ -42,12 +42,12 @@ export class Entity {
                cartesianPosition: Point) {
     this.coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
     this.#transform = new Transform();
-    this.#transform.cartesianPosition = cartesianPosition;
+    this.transform.cartesianPosition = cartesianPosition;
   }
 
   setCartesianPosition(cartesianPosition: Point) {
-    this.#transform.cartesianPosition = cartesianPosition;
-    this.#transform.position = this.coordinateConverter.convertCartesianToScreen(cartesianPosition);
+    this.transform.cartesianPosition = cartesianPosition;
+    this.transform.position = this.coordinateConverter.convertCartesianToScreen(cartesianPosition);
   }
 
   getRectangle(): Rectangle {

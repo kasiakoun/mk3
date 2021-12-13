@@ -1,22 +1,22 @@
 import { AnimationName } from '../animations/animation_name';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
+import { container } from '../inversify.config';
 import { Movement } from '../movements/movement';
 import { Point } from '../point';
 import { TimerService } from '../timer_service';
 import { Motion } from './motion';
 
 export abstract class BaseMotion implements Motion {
-  protected isStopped: boolean;
-  protected animationFinished: boolean;
+  protected readonly coordinateConverter: CoordinateConverter;
+  protected isStopped: boolean = false;
 
   constructor(protected readonly entity: Entity,
-              protected readonly coordinateConverter: CoordinateConverter,
               private readonly animationName: AnimationName,
               protected readonly timerService: TimerService,
               protected readonly movement: Movement,
-              protected readonly isReverseAnimation: boolean,
-              protected readonly changeByPassedPercetange: boolean) {
+              protected readonly isReverseAnimation: boolean) {
+    this.coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
   }
 
   start(): Promise<unknown> {
@@ -32,19 +32,16 @@ export abstract class BaseMotion implements Motion {
 
   stop() {
     this.isStopped = true;
+    this.timerService.stop();
   }
 
   protected move(start: Point, end: Point, resolve: (value: unknown) => void): Point {
     const calculatedPosition = this.movement.move(start, end);
 
     const spriteSheet = this.entity.spriteSheet;
-    this.animationFinished = this.changeByPassedPercetange
-      ? !spriteSheet.setFrameByPercentage(this.movement.travelledLengthPercentage)
-      : !spriteSheet.moveToNextFrame();
+    spriteSheet.moveToNextFrame();
 
-    const transform = this.entity.transform;
-    transform.cartesianPosition = calculatedPosition;
-    transform.position = this.coordinateConverter.convertCartesianToScreen(calculatedPosition);
+    this.entity.setCartesianPosition(calculatedPosition);
 
     this.alignPositionByDirection();
     this.alignPositionByOffset();
@@ -54,7 +51,7 @@ export abstract class BaseMotion implements Motion {
       resolve(undefined);
     }
 
-    this.entity.updated.fire();
+    this.entity.updated.fire(this.entity);
 
     return calculatedPosition;
   }

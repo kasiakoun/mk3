@@ -6,15 +6,11 @@ import { TimerService } from '../timer_service';
 import { InfiniteMotion } from './infinite_motion';
 
 export class StanceMotion extends InfiniteMotion {
-  constructor(entity: Entity,
-              coordinateConverter: CoordinateConverter) {
+  constructor(entity: Entity) {
     super(entity,
-          coordinateConverter,
           AnimationName.Stance,
-          // todo: use TimerService from Entity
-          new TimerService(),
+          entity.timerService,
           new NoActionMovement(),
-          false,
           false);
   }
 }

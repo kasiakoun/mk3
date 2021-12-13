@@ -9,13 +9,6 @@ export class AnimationForwardFrameStrategy extends AnimationFrameStrategy {
     return this.getNextFrameFromArray(frames);
   }
 
-  getNextFrameByPercentage(percentage: number): Frame {
-    const frames = this.spriteSheet.currentAnimation?.frames;
-    if (!frames) return undefined!;
-
-    return this.getNextFrameByPercentageFromArray(percentage, frames);
-  }
-
   getRightCornerOffset(): number {
     const frames = this.spriteSheet.currentAnimation?.frames;
     if (!frames) return undefined!;

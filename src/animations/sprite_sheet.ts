@@ -14,6 +14,7 @@ export class SpriteSheet {
 
   #currentFrame?: Frame;
   #currentAnimation?: Animation;
+  #animationFinished: boolean = false;
 
   get currentFrame(): Frame {
     return this.#currentFrame!;
@@ -21,6 +22,10 @@ export class SpriteSheet {
 
   get currentAnimation(): Animation {
     return this.#currentAnimation!;
+  }
+
+  get animationFinished(): boolean {
+    return this.#animationFinished;
   }
 
   constructor (readonly animations: Animation[],
@@ -37,7 +42,8 @@ export class SpriteSheet {
     this.#currentAnimation = this.animations.find(p => p.animationName === animation);
     if (!this.#currentAnimation) throw new Error(`Animation ${animation} does not exist`);
 
-    // this.#currentFrame = undefined;
+    this.#currentFrame = undefined;
+    this.#animationFinished = false;
     this.frameStrategy = isReverseAnimation
       ? this.backwardStrategy
       : this.forwardStrategy;
@@ -45,18 +51,13 @@ export class SpriteSheet {
 
   moveToNextFrame(): boolean {
     const nextFrame = this.frameStrategy?.getNextFrame();
-    if (!nextFrame) return false;
+    if (!nextFrame) {
+      this.#animationFinished = true;
+      return false;
+    }
 
+    this.#animationFinished = false;
     this.#currentFrame = nextFrame;
-
-    return true;
-  }
-
-  setFrameByPercentage(percentage: number): boolean {
-    const frame = this.frameStrategy?.getNextFrameByPercentage(percentage);
-    if (!frame) return true;
-
-    this.#currentFrame = frame;
 
     return true;
   }

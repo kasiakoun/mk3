@@ -61,13 +61,13 @@ export abstract class BaseMotion implements Motion {
 
     const transform = this.entity.transform;
     const offset = this.entity.spriteSheet.currentFrame.offset;
-    transform.position.x += this.entity.leftDirection ? -offset.x : offset.x;
+    transform.position.x += this.entity.turned ? -offset.x : offset.x;
     transform.position.y += offset.y;
   }
 
   protected alignPositionByDirection() {
     const spriteSheet = this.entity.spriteSheet;
-    if (!this.entity.leftDirection) return;
+    if (!this.entity.turned) return;
 
     const rightCorenerOffset = spriteSheet.getRightCornerOffset();
 

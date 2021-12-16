@@ -12,7 +12,7 @@ export function createEntityElement(entity: Entity): Element {
     entityElement.style.backgroundPosition = `-${entity.spriteSheet.currentFrame.imageOffset.x}px -${entity.spriteSheet.currentFrame.imageOffset.y}px`;
   }
 
-  if (entity.leftDirection) {
+  if (entity.turned) {
     entityElement.style.transform = 'scaleX(-1)';
   }
 

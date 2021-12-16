@@ -17,7 +17,7 @@ export class Entity {
   readonly timerService: TimerService = new TimerService();
   readonly updated: Observable<Entity> = new Observable();
 
-  leftDirection: boolean = false;
+  turned: boolean = false;
 
   get transform(): Transform {
     return this.#transform;

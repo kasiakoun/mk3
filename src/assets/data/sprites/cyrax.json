@@ -227,27 +227,27 @@
           "y": 3965,
           "width": 90,
           "height": 121,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetX": -8,
+          "offsetY": 16,
+          "duplicates": 1
         },
         {
           "x": 108,
           "y": 3965,
           "width": 96,
           "height": 98,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetX": -11,
+          "offsetY": 39,
+          "duplicates": 1
         },
         {
           "x": 213,
           "y": 3965,
           "width": 84,
           "height": 73,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetX": -6,
+          "offsetY": 64,
+          "duplicates": 1
         }
       ]
     },

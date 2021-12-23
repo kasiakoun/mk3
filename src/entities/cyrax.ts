@@ -13,6 +13,7 @@ import { UpwardJumpState } from './states/upward_jump_state';
 import { ForwardWalkState } from './states/forward_walk_state';
 import { Unit } from './unit';
 import { BackwardWalkState } from './states/backward_walk_state';
+import { SitState } from './states/sit_state';
 
 export class Cyrax extends Unit {
   constructor(spriteSheet: SpriteSheet,
@@ -27,6 +28,7 @@ export class Cyrax extends Unit {
     const forwardWalk = new ForwardWalkState(this, stance);
     const backwardWalk = new BackwardWalkState(this, stance);
     const throwWeb = new CyraxThrowWebState(this, stance);
+    const sit = new SitState(this, stance);
 
     let downInputEvents: InputEvent[];
     let upInputEvents: InputEvent[];
@@ -100,11 +102,20 @@ export class Cyrax extends Unit {
                                                            InputEventType.Down);
     const stanceToThrowWeb = new Transition(stance, throwWeb, stanceToThrowWebState);
 
+    downInputEvents = [InputEvent.Downward];
+    upInputEvents = [];
+    fastClicks = [];
+    const stanceToSitState = new TransitionInputState(downInputEvents,
+                                                      upInputEvents,
+                                                      fastClicks);
+    const stanceToSit = new Transition(stance, sit, stanceToSitState);
+
     stance.transitions.push(stanceToThrowWeb);
     stance.transitions.push(stanceToParabola);
     stance.transitions.push(stanceToJumpUpward);
     stance.transitions.push(stanceToForwardWalk);
     stance.transitions.push(stanceToBackwardWalk);
+    stance.transitions.push(stanceToSit);
 
     // this.currentState = stance;
     // this.currentState.promote();

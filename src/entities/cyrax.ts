@@ -106,7 +106,8 @@ export class Cyrax extends Unit {
     stance.transitions.push(stanceToForwardWalk);
     stance.transitions.push(stanceToBackwardWalk);
 
-    this.currentState = stance;
-    this.currentState.promote();
+    // this.currentState = stance;
+    // this.currentState.promote();
+    this.stateMachine.promote(stance);
   }
 }

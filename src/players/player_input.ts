@@ -26,15 +26,15 @@ export class PlayerInput {
   }
 
   handleInput() {
-    const newState = this.unit.currentState.handle(this.inputState);
-    const resetInputEvents = this.unit.currentState !== newState &&
+    const newState = this.unit.stateMachine.handle(this.inputState);
+    const resetInputEvents = this.unit.stateMachine.currentState !== newState &&
                              newState instanceof ResettableState;
     if (resetInputEvents) {
       this.fastInputEvents = [];
       this.inputState = this.createInputState(this.inputState.inputEvent!,
                                               this.inputState.inputEventType!, 0);
     }
-    this.unit.currentState = newState;
+    // this.unit.currentState = newState;
   }
 
   private createKeyDown(inputEvent: InputEvent, inputEventType: InputEventType): InputState {

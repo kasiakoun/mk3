@@ -13,11 +13,11 @@ export class CollisionResolver {
   }
 
   private onCollided(entity1: Entity, entity2: Entity) {
-    const state1 = entity1.currentState;
+    const state1 = entity1.stateMachine.currentState;
     const isWalk1 = state1 instanceof ForwardWalkState;
     const isStance1 = state1 instanceof StanceState;
 
-    const state2 = entity2.currentState;
+    const state2 = entity2.stateMachine.currentState;
     const isStance2 = state2 instanceof StanceState;
 
     if ((isWalk1) && isStance2) {

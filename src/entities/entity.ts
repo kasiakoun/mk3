@@ -7,13 +7,15 @@ import { Rectangle } from '../rectangle';
 import { TimerService } from '../timer_service';
 import { Transform } from '../transform';
 import { StateBase } from './states/state_base';
+import { StateMachine } from './states/state_machine';
 
 export class Entity {
   protected readonly coordinateConverter: CoordinateConverter;
 
   readonly #transform: Transform;
-  #currentState: StateBase;
+  // #currentState: StateBase;
 
+  readonly stateMachine: StateMachine;
   readonly timerService: TimerService = new TimerService();
   readonly updated: Observable<Entity> = new Observable();
 
@@ -27,21 +29,22 @@ export class Entity {
     return this.spriteSheet.name;
   }
 
-  get currentState(): StateBase {
-    return this.#currentState;
-  }
+  // get currentState(): StateBase {
+  //   return this.#currentState;
+  // }
 
-  set currentState(value: StateBase) {
-    if (this.#currentState === value) return;
-    this.#currentState = value;
-    const timeNow = Date.now();
-    console.log(`currentState: ${value.getName()} time: ${timeNow}`);
-  }
+  // set currentState(value: StateBase) {
+  //   if (this.#currentState === value) return;
+  //   this.#currentState = value;
+  //   const timeNow = Date.now();
+  //   console.log(`currentState: ${value.getName()} time: ${timeNow}`);
+  // }
 
   constructor (readonly spriteSheet: SpriteSheet,
                cartesianPosition: Point) {
     this.coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
     this.#transform = new Transform();
+    this.stateMachine = new StateMachine();
     this.transform.cartesianPosition = cartesianPosition;
   }
 

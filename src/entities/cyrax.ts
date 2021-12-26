@@ -14,6 +14,7 @@ import { ForwardWalkState } from './states/forward_walk_state';
 import { Unit } from './unit';
 import { BackwardWalkState } from './states/backward_walk_state';
 import { SitState } from './states/sit_state';
+import { StandUpState } from './states/stand_up_state';
 
 export class Cyrax extends Unit {
   constructor(spriteSheet: SpriteSheet,
@@ -29,6 +30,7 @@ export class Cyrax extends Unit {
     const backwardWalk = new BackwardWalkState(this, stance);
     const throwWeb = new CyraxThrowWebState(this, stance);
     const sit = new SitState(this, stance);
+    const standUp = new StandUpState(this, stance);
 
     let downInputEvents: InputEvent[];
     let upInputEvents: InputEvent[];
@@ -109,6 +111,15 @@ export class Cyrax extends Unit {
                                                       upInputEvents,
                                                       fastClicks);
     const stanceToSit = new Transition(stance, sit, stanceToSitState);
+
+    downInputEvents = [];
+    upInputEvents = [InputEvent.Downward];
+    fastClicks = [];
+    const sitToStandUpState = new TransitionInputState(downInputEvents,
+                                                       upInputEvents,
+                                                       fastClicks);
+    const sitToStandUp = new Transition(sit, standUp, sitToStandUpState);
+    sit.transitions.push(sitToStandUp);
 
     stance.transitions.push(stanceToThrowWeb);
     stance.transitions.push(stanceToParabola);

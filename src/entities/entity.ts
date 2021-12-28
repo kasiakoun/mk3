@@ -8,11 +8,13 @@ import { TimerService } from '../timer_service';
 import { Transform } from '../transform';
 import { StateBase } from './states/state_base';
 import { StateMachine } from './states/state_machine';
+import { StateName } from './states/state_name';
 
 export class Entity {
   protected readonly coordinateConverter: CoordinateConverter;
 
   readonly #transform: Transform;
+  #stateMachine: StateMachine;
   // #currentState: StateBase;
 
   readonly stateMachine: StateMachine;
@@ -29,22 +31,18 @@ export class Entity {
     return this.spriteSheet.name;
   }
 
-  // get currentState(): StateBase {
-  //   return this.#currentState;
-  // }
+  get stateMachine(): StateMachine {
+    return this.#stateMachine;
+  }
 
-  // set currentState(value: StateBase) {
-  //   if (this.#currentState === value) return;
-  //   this.#currentState = value;
-  //   const timeNow = Date.now();
-  //   console.log(`currentState: ${value.getName()} time: ${timeNow}`);
-  // }
+  protected set stateMachine(stateMachine: StateMachine) {
+    this.#stateMachine = stateMachine;
+  }
 
   constructor (readonly spriteSheet: SpriteSheet,
                cartesianPosition: Point) {
     this.coordinateConverter = container.get<CoordinateConverter>(nameof<CoordinateConverter>());
     this.#transform = new Transform();
-    this.stateMachine = new StateMachine();
     this.transform.cartesianPosition = cartesianPosition;
   }
 

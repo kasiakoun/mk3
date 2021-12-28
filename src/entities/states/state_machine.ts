@@ -2,11 +2,14 @@ import { InputState } from '../../players/input_state';
 import { StateBase } from './state_base';
 
 export class StateMachine {
-  private readonly stackStates: StateBase[] = [];
+  private readonly previousStates: StateBase[] = [];
+  readonly statesQueue: StateBase[] = [];
 
   get currentState(): StateBase {
-    return this.stackStates[this.stackStates.length - 1];
+    return this.previousStates[this.previousStates.length - 1];
   }
+
+  constructor(readonly states: StateBase[]) {}
 
   handle(inputState: InputState): StateBase {
     const firstTransition = this.currentState.transitions.find(p => p.canPromote(inputState));
@@ -17,26 +20,41 @@ export class StateMachine {
     return firstTransition.toState;
   }
 
+  async queueUpState(state: StateBase) {
+    const currentState = this.currentState;
+    if (currentState.interruptible) {
+      await this.promote(state);
+    } else {
+      this.statesQueue.push(state);
+    }
+  }
+
   async promote(state: StateBase) {
     if (this.currentState && this.currentState === state) return;
     if (this.currentState) {
       this.currentState.stop();
     }
     console.log(`New state: ${state.getName()}`);
-    this.stackStates.push(state);
+    this.previousStates.push(state);
 
     await state.promote();
-    // this.tryToPromoteToStartState(state);
+    if (this.currentState !== state) return;
+
+    await this.promoteToQueueState(state);
   }
 
-  // private tryToPromoteToStartState(toState: StateBase) {
-  //   if (!this.startState) {
-  //     // throw new Error(`startState ${this.getName()} is not set`);
-  //   }
+  async promoteToQueueState(state: StateBase) {
+    if (this.currentState !== state) return;
 
-  //   if (!this.isRunAnotherState(toState)) {
-  //     this.startState.promote();
-  //     this.unit.currentState = this.startState;
-  //   }
-  // }
+    let nextState: StateBase;
+    if (this.statesQueue.length !== 0) {
+      nextState = this.statesQueue[0];
+      this.statesQueue.shift();
+    } else {
+      const nonInterruptibleIndex = this.previousStates.map(p => p.interruptible).lastIndexOf(true);
+      nextState = this.previousStates[nonInterruptibleIndex];
+    }
+
+    await this.promote(nextState);
+  }
 }

@@ -6,4 +6,5 @@ export enum AnimationName {
   Fly = 'fly',
   Walk = 'walk',
   Sit = 'sit',
+  StandTurn = 'stand_turn',
 }

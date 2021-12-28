@@ -415,6 +415,39 @@
           "duplicates": 5
         }
       ]
+    },
+    {
+      "name": "stand_turn",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 284,
+          "y": 4306,
+          "width": 73,
+          "height": 134,
+          "offsetX": -2,
+          "offsetY": 3,
+          "duplicates": 1
+        },
+        {
+          "x": 358,
+          "y": 4306,
+          "width": 72,
+          "height": 134,
+          "offsetX": -5,
+          "offsetY": 3,
+          "duplicates": 1
+        },
+        {
+          "x": 431,
+          "y": 4306,
+          "width": 73,
+          "height": 134,
+          "offsetX": 0,
+          "offsetY": 3,
+          "duplicates": 1
+        }
+      ]
     }
   ]
 }

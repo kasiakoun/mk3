@@ -17,8 +17,11 @@ export abstract class FiniteMotion extends BaseMotion {
     if (canFinishMotion) {
       this.timerService.stop();
       resolve(undefined);
+      this.onMotionFinished();
     }
 
     return calculatedPosition;
   }
+
+  protected onMotionFinished() {}
 }

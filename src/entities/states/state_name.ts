@@ -5,6 +5,7 @@ export enum StateName {
   ParabolaJump = 'parabola_jump',
   Sit = 'sit',
   Stance = 'stance',
+  StandTurn = 'stand_turn',
   StandUp = 'stand_up',
   UpwardJump = 'upward_jump',
 }

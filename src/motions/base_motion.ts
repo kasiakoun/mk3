@@ -1,6 +1,7 @@
 import { AnimationName } from '../animations/animation_name';
 import { CoordinateConverter } from '../converters/coordinate_converter';
 import { Entity } from '../entities/entity';
+import { UpdateState } from '../entities/update_state';
 import { container } from '../inversify.config';
 import { Movement } from '../movements/movement';
 import { Point } from '../point';
@@ -41,6 +42,7 @@ export abstract class BaseMotion implements Motion {
     const spriteSheet = this.entity.spriteSheet;
     spriteSheet.moveToNextFrame();
 
+    const lastCartesian = this.entity.transform.cartesianPosition;
     this.entity.setCartesianPosition(calculatedPosition);
 
     this.alignPositionByDirection();
@@ -51,7 +53,14 @@ export abstract class BaseMotion implements Motion {
       resolve(undefined);
     }
 
-    this.entity.updated.fire(this.entity);
+    const currentCartesian = this.entity.transform.cartesianPosition;
+    const updateState = new UpdateState();
+    updateState.frame = true;
+    if (lastCartesian.x !== currentCartesian.x ||
+        lastCartesian.y !== currentCartesian.y) {
+      updateState.position = true;
+    }
+    this.entity.updated.fire(this.entity, updateState);
 
     return calculatedPosition;
   }

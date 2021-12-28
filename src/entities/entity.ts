@@ -9,6 +9,7 @@ import { Transform } from '../transform';
 import { StateBase } from './states/state_base';
 import { StateMachine } from './states/state_machine';
 import { StateName } from './states/state_name';
+import { UpdateState } from './update_state';
 
 export class Entity {
   protected readonly coordinateConverter: CoordinateConverter;
@@ -17,9 +18,8 @@ export class Entity {
   #stateMachine: StateMachine;
   // #currentState: StateBase;
 
-  readonly stateMachine: StateMachine;
   readonly timerService: TimerService = new TimerService();
-  readonly updated: Observable<Entity> = new Observable();
+  readonly updated: Observable<Entity, UpdateState> = new Observable();
 
   turned: boolean = false;
 
@@ -61,5 +61,13 @@ export class Entity {
     const bottom = top + this.spriteSheet.currentAnimation.maxFrameHeight;
 
     return new Rectangle(left, top, right, bottom);
+  }
+
+  async turn(turned: boolean) {
+    if (this.turned === turned) return;
+
+    const state = this.stateMachine.states.find(p => p.name === StateName.StandTurn);
+    if (this.stateMachine.statesQueue.some(p => p === state)) return;
+    await this.stateMachine.queueUpState(state!);
   }
 }

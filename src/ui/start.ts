@@ -28,6 +28,7 @@ import { InputEvent } from '../players/input_event';
 import { InputEventType } from '../players/input_event_type';
 import { GameTimer } from '../game_timer';
 import { CollisionResolver } from '../entities/collision/collision_resolver';
+import { TurnDetector } from '../entities/turn/turn_detector';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -59,6 +60,7 @@ export async function start() {
   arena.entityRemoved.subscribe(p => onEntityRemoved(p));
 
   container.get<CollisionResolver>(nameof<CollisionResolver>());
+  container.get<TurnDetector>(nameof<TurnDetector>());
 
   const camera = container.get<Camera>(nameof<Camera>());
   camera.positionChanged.subscribe((position, parallaxLayerElements) =>

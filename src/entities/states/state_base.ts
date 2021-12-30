@@ -2,6 +2,7 @@ import { Motion } from '../../motions/motion';
 import { InputState } from '../../players/input_state';
 import { Unit } from '../unit';
 import { StateName } from './state_name';
+import { StateType } from './state_type';
 import { Transition } from './transition';
 
 export abstract class StateBase {
@@ -9,6 +10,7 @@ export abstract class StateBase {
   transitions: Transition[] = [];
   abstract readonly interruptible: boolean;
   abstract readonly name: StateName;
+  abstract readonly state: StateType;
 
   constructor(protected readonly unit: Unit) {}
 

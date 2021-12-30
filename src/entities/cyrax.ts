@@ -25,15 +25,14 @@ export class Cyrax extends Unit {
 
     // init states
     const stance = new StanceState(this);
-    stance.startState = stance;
-    const parabolaJump = new ParabolaJumpState(this, stance);
-    const upwardJump = new UpwardJumpState(this, stance);
-    const forwardWalk = new ForwardWalkState(this, stance);
-    const backwardWalk = new BackwardWalkState(this, stance);
-    const throwWeb = new CyraxThrowWebState(this, stance);
-    const sit = new SitState(this, stance);
-    const standUp = new StandUpState(this, stance);
-    const standTurn = new StandTurnState(this, stance);
+    const parabolaJump = new ParabolaJumpState(this);
+    const upwardJump = new UpwardJumpState(this);
+    const forwardWalk = new ForwardWalkState(this);
+    const backwardWalk = new BackwardWalkState(this);
+    const throwWeb = new CyraxThrowWebState(this);
+    const sit = new SitState(this);
+    const standUp = new StandUpState(this);
+    const standTurn = new StandTurnState(this);
 
     const states = [stance,
       parabolaJump,

@@ -10,9 +10,7 @@ export abstract class StateBase {
   abstract readonly interruptible: boolean;
   abstract readonly name: StateName;
 
-  constructor(protected readonly unit: Unit,
-              public startState?: StateBase) {
-  }
+  constructor(protected readonly unit: Unit) {}
 
   abstract promote(): Promise<void>;
 

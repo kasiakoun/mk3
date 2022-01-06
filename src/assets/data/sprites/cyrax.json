@@ -448,6 +448,39 @@
           "duplicates": 1
         }
       ]
+    },
+    {
+      "name": "sit_turn",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 0,
+          "y": 4306,
+          "width": 92,
+          "height": 77,
+          "offsetX": -8,
+          "offsetY": 60,
+          "duplicates": 1
+        },
+        {
+          "x": 93,
+          "y": 4306,
+          "width": 97,
+          "height": 76,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 1
+        },
+        {
+          "x": 191,
+          "y": 4306,
+          "width": 92,
+          "height": 76,
+          "offsetX": 0,
+          "offsetY": 0,
+          "duplicates": 1
+        }
+      ]
     }
   ]
 }

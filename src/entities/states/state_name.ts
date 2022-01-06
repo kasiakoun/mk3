@@ -8,4 +8,5 @@ export enum StateName {
   StandTurn = 'stand_turn',
   StandUp = 'stand_up',
   UpwardJump = 'upward_jump',
+  SitTurn = 'sit_turn',
 }

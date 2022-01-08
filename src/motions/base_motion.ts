@@ -32,6 +32,14 @@ export abstract class BaseMotion implements Motion {
   }
 
   stop() {
+    const spriteSheet = this.entity.spriteSheet;
+    const animationOffset = this.getLastAnimationOffset();
+    const rightCornerOffsetX = spriteSheet.getRightCornerOffset();
+
+    spriteSheet.lastAnimationOffsetX = animationOffset - rightCornerOffsetX;
+    spriteSheet.lastMaxFrameWidth = spriteSheet.currentAnimation.maxFrameWidth;
+    spriteSheet.lastRightCornerOffsetX = rightCornerOffsetX;
+
     this.isStopped = true;
     this.timerService.stop();
   }
@@ -47,6 +55,7 @@ export abstract class BaseMotion implements Motion {
 
     this.alignPositionByDirection();
     this.alignPositionByOffset();
+    this.alignPositionByAnimationOffset();
 
     if (this.isStopped) {
       this.timerService.stop();
@@ -81,5 +90,26 @@ export abstract class BaseMotion implements Motion {
     const rightCorenerOffset = spriteSheet.getRightCornerOffset();
 
     this.entity.transform.position.x += rightCorenerOffset;
+  }
+
+  private alignPositionByAnimationOffset() {
+    if (!this.entity.turned) return;
+
+    const animationOffset = this.getLastAnimationOffset();
+    this.entity.transform.position.x += animationOffset;
+  }
+
+  private getLastAnimationOffset(): number {
+    const spriteSheet = this.entity.spriteSheet;
+    let animationOffset = 0;
+
+    if (spriteSheet.lastMaxFrameWidth !== 0) {
+      animationOffset += spriteSheet.lastMaxFrameWidth - spriteSheet.currentAnimation.maxFrameWidth;
+    }
+
+    animationOffset += spriteSheet.lastRightCornerOffsetX;
+    animationOffset += spriteSheet.lastAnimationOffsetX;
+
+    return animationOffset;
   }
 }

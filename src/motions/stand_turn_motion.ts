@@ -5,7 +5,8 @@ import { FiniteConditions } from './finite_conditions/finite_conditions';
 import { FiniteMotion } from './finite_motion';
 
 export class StandTurnMotion extends FiniteMotion {
-  constructor(entity: Entity) {
+  constructor(entity: Entity,
+              private readonly turned: boolean) {
     super(entity,
           AnimationName.StandTurn,
           entity.timerService,
@@ -16,6 +17,6 @@ export class StandTurnMotion extends FiniteMotion {
   }
 
   onMotionFinished() {
-    this.entity.turned = this.entity.turned ? false : true;
+    this.entity.turned = this.turned;
   }
 }

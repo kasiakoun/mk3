@@ -16,7 +16,9 @@ import { BackwardWalkState } from './states/backward_walk_state';
 import { SitState } from './states/sit_state';
 import { StandUpState } from './states/stand_up_state';
 import { StateMachine } from './states/state_machine';
-import { StandTurnState } from './states/stand_turn_state';
+import { StandTurnState } from './states/turn_states/stand_turn_state';
+import { StandTurnToRight } from './states/turn_states/stand_turn_to_right';
+import { StandTurnToLeft } from './states/turn_states/stand_turn_to_left';
 
 export class Cyrax extends Unit {
   constructor(spriteSheet: SpriteSheet,
@@ -32,7 +34,8 @@ export class Cyrax extends Unit {
     const throwWeb = new CyraxThrowWebState(this);
     const sit = new SitState(this);
     const standUp = new StandUpState(this);
-    const standTurn = new StandTurnState(this);
+    const standTurnToRight = new StandTurnToRight(this);
+    const standTurnToLeft = new StandTurnToLeft(this);
 
     const states = [stance,
       parabolaJump,
@@ -41,7 +44,8 @@ export class Cyrax extends Unit {
       backwardWalk,
       throwWeb,
       sit,
-      standTurn,
+      standTurnToRight,
+      standTurnToLeft,
       standUp];
     this.stateMachine = new StateMachine(states);
 

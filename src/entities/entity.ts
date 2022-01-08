@@ -64,10 +64,17 @@ export class Entity {
   }
 
   async turn(turned: boolean) {
-    if (this.turned === turned) return;
+    const stateName = turned
+      ? StateName.StandTurnToLeft
+      : StateName.StandTurnToRight;
 
-    const state = this.stateMachine.states.find(p => p.name === StateName.StandTurn);
-    if (this.stateMachine.statesQueue.some(p => p === state)) return;
+    const state = this.stateMachine.states.find(p => p.name === stateName);
+
+    if (this.stateMachine.statesQueue.some(p => p === state) ||
+        this.stateMachine.currentState === state) return;
+
+    console.log(`turned: ${turned}`);
+
     await this.stateMachine.queueUpState(state!);
   }
 }

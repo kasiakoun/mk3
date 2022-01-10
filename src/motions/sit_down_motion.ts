@@ -6,7 +6,7 @@ import { InfiniteMotion } from './infinite_motion';
 export class SitDownMotion extends InfiniteMotion {
   constructor(entity: Entity) {
     super(entity,
-          AnimationName.Sit,
+          AnimationName.SitDown,
           entity.timerService,
           new NoActionMovement(),
           false);

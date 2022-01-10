@@ -219,7 +219,7 @@
       ]
     },
     {
-      "name": "sit",
+      "name": "sit_down",
       "repeatAnimation": false,
       "frames": [
         {
@@ -479,6 +479,21 @@
           "offsetX": 0,
           "offsetY": 0,
           "duplicates": 1
+        }
+      ]
+    },
+    {
+      "name": "sit",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 213,
+          "y": 3965,
+          "width": 84,
+          "height": 73,
+          "offsetX": -6,
+          "offsetY": 64,
+          "duplicates": 0
         }
       ]
     }

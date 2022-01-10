@@ -13,7 +13,7 @@ import { UpwardJumpState } from './states/upward_jump_state';
 import { ForwardWalkState } from './states/forward_walk_state';
 import { Unit } from './unit';
 import { BackwardWalkState } from './states/backward_walk_state';
-import { SitState } from './states/sit_state';
+import { SitDownState } from './states/sit_down_state';
 import { StandUpState } from './states/stand_up_state';
 import { StateMachine } from './states/state_machine';
 import { StandTurnState } from './states/turn_states/stand_turn_state';
@@ -32,7 +32,7 @@ export class Cyrax extends Unit {
     const forwardWalk = new ForwardWalkState(this);
     const backwardWalk = new BackwardWalkState(this);
     const throwWeb = new CyraxThrowWebState(this);
-    const sit = new SitState(this);
+    const sitDown = new SitDownState(this);
     const standUp = new StandUpState(this);
     const standTurnToRight = new StandTurnToRight(this);
     const standTurnToLeft = new StandTurnToLeft(this);
@@ -43,7 +43,7 @@ export class Cyrax extends Unit {
       forwardWalk,
       backwardWalk,
       throwWeb,
-      sit,
+      sitDown,
       standTurnToRight,
       standTurnToLeft,
       standUp];
@@ -124,10 +124,10 @@ export class Cyrax extends Unit {
     downInputEvents = [InputEvent.Downward];
     upInputEvents = [];
     fastClicks = [];
-    const stanceToSitState = new TransitionInputState(downInputEvents,
-                                                      upInputEvents,
-                                                      fastClicks);
-    const stanceToSit = new Transition(stance, sit, stanceToSitState);
+    const stanceToSitDownState = new TransitionInputState(downInputEvents,
+                                                          upInputEvents,
+                                                          fastClicks);
+    const stanceToSitDown = new Transition(stance, sitDown, stanceToSitDownState);
 
     downInputEvents = [];
     upInputEvents = [InputEvent.Downward];
@@ -135,15 +135,15 @@ export class Cyrax extends Unit {
     const sitToStandUpState = new TransitionInputState(downInputEvents,
                                                        upInputEvents,
                                                        fastClicks);
-    const sitToStandUp = new Transition(sit, standUp, sitToStandUpState);
-    sit.transitions.push(sitToStandUp);
+    const sitDownToStandUp = new Transition(sitDown, standUp, sitToStandUpState);
+    sitDown.transitions.push(sitDownToStandUp);
 
     stance.transitions.push(stanceToThrowWeb);
     stance.transitions.push(stanceToParabola);
     stance.transitions.push(stanceToJumpUpward);
     stance.transitions.push(stanceToForwardWalk);
     stance.transitions.push(stanceToBackwardWalk);
-    stance.transitions.push(stanceToSit);
+    stance.transitions.push(stanceToSitDown);
 
     // this.currentState = stance;
     // this.currentState.promote();

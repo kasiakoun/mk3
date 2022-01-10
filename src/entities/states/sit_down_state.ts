@@ -3,9 +3,9 @@ import { StateBase } from './state_base';
 import { StateName } from './state_name';
 import { StateType } from './state_type';
 
-export class SitState extends StateBase {
+export class SitDownState extends StateBase {
   readonly state: StateType = StateType.Sit;
-  readonly name: StateName = StateName.Sit;
+  readonly name: StateName = StateName.SitDown;
   readonly interruptible: boolean = false;
   async promote() {
     this.motion = new SitDownMotion(this.unit);

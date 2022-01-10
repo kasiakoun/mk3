@@ -4,6 +4,7 @@ export enum StateName {
   ForwardWalk = 'forward_walk_state',
   ParabolaJump = 'parabola_jump',
   Sit = 'sit',
+  SitDown = 'sit_down',
   Stance = 'stance',
   StandTurnToRight = 'stand_turn_to_right',
   StandTurnToLeft = 'stand_turn_to_left',

@@ -1,5 +1,7 @@
 import { InputState } from '../../players/input_state';
 import { StateBase } from './state_base';
+import { StateName } from './state_name';
+import { StateType } from './state_type';
 
 export class StateMachine {
   private readonly previousStates: StateBase[] = [];
@@ -51,8 +53,14 @@ export class StateMachine {
       nextState = this.statesQueue[0];
       this.statesQueue.shift();
     } else {
-      const nonInterruptibleIndex = this.previousStates.map(p => p.interruptible).lastIndexOf(true);
-      nextState = this.previousStates[nonInterruptibleIndex];
+      let stateName: StateName;
+      if (state.state === StateType.Stand) {
+        stateName = StateName.Stance;
+      } else if (state.state === StateType.Sit) {
+        stateName = StateName.Sit;
+      }
+
+      nextState = this.states.find(p => p.name === stateName)!;
     }
 
     await this.promote(nextState);

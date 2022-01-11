@@ -1,6 +1,5 @@
 import { StandTurnMotion } from '../../../motions/stand_turn_motion';
 import { StateBase } from '../state_base';
-import { StateName } from '../state_name';
 import { StateType } from '../state_type';
 
 export abstract class StandTurnState extends StateBase {

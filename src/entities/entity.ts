@@ -9,6 +9,7 @@ import { Transform } from '../transform';
 import { StateBase } from './states/state_base';
 import { StateMachine } from './states/state_machine';
 import { StateName } from './states/state_name';
+import { StateType } from './states/state_type';
 import { UpdateState } from './update_state';
 
 export class Entity {
@@ -64,9 +65,16 @@ export class Entity {
   }
 
   async turn(turned: boolean) {
-    const stateName = turned
-      ? StateName.StandTurnToLeft
-      : StateName.StandTurnToRight;
+    let stateName: StateName;
+    if (this.stateMachine.currentState.state === StateType.Stand) {
+      stateName = turned
+        ? StateName.StandTurnToLeft
+        : StateName.StandTurnToRight;
+    } else if (this.stateMachine.currentState.state === StateType.Sit) {
+      stateName = turned
+        ? StateName.SitTurnToLeft
+        : StateName.SitTurnToRight;
+    }
 
     const state = this.stateMachine.states.find(p => p.name === stateName);
 

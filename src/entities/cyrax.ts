@@ -17,8 +17,12 @@ import { SitDownState } from './states/sit_down_state';
 import { StandUpState } from './states/stand_up_state';
 import { StateMachine } from './states/state_machine';
 import { StandTurnState } from './states/turn_states/stand_turn_state';
-import { StandTurnToRight } from './states/turn_states/stand_turn_to_right';
-import { StandTurnToLeft } from './states/turn_states/stand_turn_to_left';
+import { StandTurnToRightState } from './states/turn_states/stand_turn_to_right_state';
+import { StandTurnToLeftState } from './states/turn_states/stand_turn_to_left_state';
+import { SitState } from './states/sit_state';
+import { SitTurnState } from './states/turn_states/sit_turn_state';
+import { SitTurnToRightState } from './states/turn_states/sit_turn_to_right_state';
+import { SitTurnToLeftState } from './states/turn_states/sit_turn_to_left_state';
 
 export class Cyrax extends Unit {
   constructor(spriteSheet: SpriteSheet,
@@ -33,9 +37,12 @@ export class Cyrax extends Unit {
     const backwardWalk = new BackwardWalkState(this);
     const throwWeb = new CyraxThrowWebState(this);
     const sitDown = new SitDownState(this);
+    const sit = new SitState(this);
+    const sitTurnToRight = new SitTurnToRightState(this);
+    const sitTurnToLeft = new SitTurnToLeftState(this);
     const standUp = new StandUpState(this);
-    const standTurnToRight = new StandTurnToRight(this);
-    const standTurnToLeft = new StandTurnToLeft(this);
+    const standTurnToRight = new StandTurnToRightState(this);
+    const standTurnToLeft = new StandTurnToLeftState(this);
 
     const states = [stance,
       parabolaJump,
@@ -44,6 +51,9 @@ export class Cyrax extends Unit {
       backwardWalk,
       throwWeb,
       sitDown,
+      sit,
+      sitTurnToRight,
+      sitTurnToLeft,
       standTurnToRight,
       standTurnToLeft,
       standUp];
@@ -135,8 +145,8 @@ export class Cyrax extends Unit {
     const sitToStandUpState = new TransitionInputState(downInputEvents,
                                                        upInputEvents,
                                                        fastClicks);
-    const sitDownToStandUp = new Transition(sitDown, standUp, sitToStandUpState);
-    sitDown.transitions.push(sitDownToStandUp);
+    const sitToStandUp = new Transition(sit, standUp, sitToStandUpState);
+    sit.transitions.push(sitToStandUp);
 
     stance.transitions.push(stanceToThrowWeb);
     stance.transitions.push(stanceToParabola);

@@ -10,5 +10,6 @@ export enum StateName {
   StandTurnToLeft = 'stand_turn_to_left',
   StandUp = 'stand_up',
   UpwardJump = 'upward_jump',
-  SitTurn = 'sit_turn',
+  SitTurnToRight = 'sit_turn_to_right',
+  SitTurnToLeft = 'sit_turn_to_left',
 }

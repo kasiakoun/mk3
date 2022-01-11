@@ -467,8 +467,8 @@
           "y": 4306,
           "width": 97,
           "height": 76,
-          "offsetX": 0,
-          "offsetY": 0,
+          "offsetX": -15,
+          "offsetY": 61,
           "duplicates": 1
         },
         {
@@ -476,8 +476,8 @@
           "y": 4306,
           "width": 92,
           "height": 76,
-          "offsetX": 0,
-          "offsetY": 0,
+          "offsetX": -9,
+          "offsetY": 61,
           "duplicates": 1
         }
       ]

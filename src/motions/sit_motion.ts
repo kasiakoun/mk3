@@ -1,16 +1,14 @@
 import { AnimationName } from '../animations/animation_name';
 import { Entity } from '../entities/entity';
 import { NoActionMovement } from '../movements/no_action_movement';
-import { FiniteConditions } from './finite_conditions/finite_conditions';
-import { FiniteMotion } from './finite_motion';
+import { InfiniteMotion } from './infinite_motion';
 
-export class StandUpMotion extends FiniteMotion {
+export class SitMotion extends InfiniteMotion {
   constructor(entity: Entity) {
     super(entity,
-          AnimationName.SitDown,
+          AnimationName.Sit,
           entity.timerService,
           new NoActionMovement(),
-          true);
-    this.finiteConditions = [FiniteConditions.animationIsFinished];
+          false);
   }
 }

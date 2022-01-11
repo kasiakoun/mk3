@@ -66,7 +66,8 @@ export class Entity {
 
   async turn(turned: boolean) {
     let stateName: StateName;
-    if (this.stateMachine.currentState.state === StateType.Stand) {
+    if (this.stateMachine.currentState.state === StateType.Stand ||
+        this.stateMachine.currentState.state === StateType.Fly) {
       stateName = turned
         ? StateName.StandTurnToLeft
         : StateName.StandTurnToRight;

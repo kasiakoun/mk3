@@ -54,7 +54,7 @@ export class StateMachine {
       this.statesQueue.shift();
     } else {
       let stateName: StateName;
-      if (state.state === StateType.Stand) {
+      if (state.state === StateType.Stand || state.state === StateType.Fly) {
         stateName = StateName.Stance;
       } else if (state.state === StateType.Sit) {
         stateName = StateName.Sit;

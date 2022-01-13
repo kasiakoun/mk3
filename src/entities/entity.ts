@@ -17,12 +17,20 @@ export class Entity {
 
   readonly #transform: Transform;
   #stateMachine: StateMachine;
-  // #currentState: StateBase;
+  #turned: boolean = false;
 
   readonly timerService: TimerService = new TimerService();
   readonly updated: Observable<Entity, UpdateState> = new Observable();
+  readonly entityTurned: Observable<boolean> = new Observable();
 
-  turned: boolean = false;
+  get turned(): boolean {
+    return this.#turned;
+  }
+
+  set turned(val: boolean) {
+    this.#turned = val;
+    this.entityTurned.fire(val);
+  }
 
   get transform(): Transform {
     return this.#transform;

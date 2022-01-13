@@ -13,19 +13,66 @@ export class PlayerInput {
 
   private inputState: InputState = new InputState([], []);
 
-  constructor(private readonly unit: Unit) {}
+  constructor(private readonly unit: Unit) {
+    unit.entityTurned.subscribe(turned => this.onEntityTurned(turned));
+  }
+
+  private onEntityTurned(turned: boolean) {
+    const fastInputEventsClicks = this.inputState.fastInputEventsClicks;
+    fastInputEventsClicks?.splice(0, fastInputEventsClicks?.length);
+    this.fastInputEvents.splice(0, this.fastInputEvents.length);
+
+    this.clearDownInputEventsByEntityTurn(turned);
+    this.clearInputStateByEntityTurn(turned);
+  }
+
+  private clearDownInputEventsByEntityTurn(turned: boolean) {
+    const keys = [...this.downInputEvents.keys()];
+    this.downInputEvents.clear();
+
+    const expiredTime = Date.now() - this.storingTime;
+    keys.forEach((key) => {
+      let downInputEvent = key;
+      if (key === InputEvent.Forward) downInputEvent = InputEvent.Backward;
+      if (key === InputEvent.Backward) downInputEvent = InputEvent.Forward;
+
+      this.downInputEvents.set(downInputEvent, expiredTime);
+    });
+  }
+
+  private clearInputStateByEntityTurn(turned: boolean) {
+    const keys = [...this.inputState.downInputEvents];
+    this.inputState.downInputEvents.splice(0, this.inputState.downInputEvents.length);
+
+    keys.forEach((key) => {
+      let downInputEvent = key;
+      if (key === InputEvent.Forward) downInputEvent = InputEvent.Backward;
+      if (key === InputEvent.Backward) downInputEvent = InputEvent.Forward;
+
+      this.inputState.downInputEvents.push(downInputEvent);
+    });
+  }
 
   fillchangeInputState(inputEvent: InputEvent, inputEventType: InputEventType) {
+    const newInputEvent = this.reverseInputEventByUnitTurn(inputEvent);
     if (inputEventType === InputEventType.Down) {
-      this.inputState = this.createKeyDown(inputEvent, inputEventType);
+      this.inputState = this.createKeyDown(newInputEvent, inputEventType);
     }
 
     if (inputEventType === InputEventType.Up) {
-      this.inputState = this.createKeyUp(inputEvent, inputEventType);
+      this.inputState = this.createKeyUp(newInputEvent, inputEventType);
     }
   }
 
-  handleInput() {
+  reverseInputEventByUnitTurn(inputEvent: InputEvent): InputEvent {
+    if (!this.unit.turned) return inputEvent;
+
+    if (inputEvent === InputEvent.Forward) return InputEvent.Backward;
+    if (inputEvent === InputEvent.Backward) return InputEvent.Forward;
+
+    return inputEvent;
+  }
+
     const newState = this.unit.stateMachine.handle(this.inputState);
     const resetInputEvents = this.unit.stateMachine.currentState !== newState &&
                              newState instanceof ResettableState;

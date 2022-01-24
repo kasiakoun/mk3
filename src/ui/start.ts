@@ -71,10 +71,11 @@ export async function start() {
 
   // todo: replace initial point
   const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(100, 150));
+  firstUnit.turned = false;
   const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
 
   const firstPlayerInput = new PlayerInput(firstUnit);
-  gameTimer.updated.subscribe(() => firstPlayerInput.handleInput());
+  gameTimer.updated.subscribe(passedTime => firstPlayerInput.handleInput(passedTime));
 
   window.addEventListener('keydown', (e) => {
     e.preventDefault();

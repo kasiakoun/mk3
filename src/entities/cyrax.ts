@@ -6,7 +6,7 @@ import { InputState } from '../players/input_state';
 import { TransitionInputState } from '../players/transition_input_state';
 import { Point } from '../point';
 import { CyraxThrowWebState } from './states/cyrax_throw_web_state';
-import { ParabolaJumpState } from './states/parabola_jump_state';
+import { ForwardParabolaJumpState } from './states/forward_parabola_jump_state';
 import { StanceState } from './states/stance_state';
 import { Transition } from './states/transition';
 import { UpwardJumpState } from './states/upward_jump_state';
@@ -23,6 +23,7 @@ import { SitState } from './states/sit_state';
 import { SitTurnState } from './states/turn_states/sit_turn_state';
 import { SitTurnToRightState } from './states/turn_states/sit_turn_to_right_state';
 import { SitTurnToLeftState } from './states/turn_states/sit_turn_to_left_state';
+import { BackwardParabolaJumpState } from './states/backward_parabola_jump_state';
 
 export class Cyrax extends Unit {
   constructor(spriteSheet: SpriteSheet,
@@ -31,7 +32,8 @@ export class Cyrax extends Unit {
 
     // init states
     const stance = new StanceState(this);
-    const parabolaJump = new ParabolaJumpState(this);
+    const forwardParabolaJump = new ForwardParabolaJumpState(this);
+    const backwardParabolaJump = new BackwardParabolaJumpState(this);
     const upwardJump = new UpwardJumpState(this);
     const forwardWalk = new ForwardWalkState(this);
     const backwardWalk = new BackwardWalkState(this);
@@ -45,7 +47,8 @@ export class Cyrax extends Unit {
     const standTurnToLeft = new StandTurnToLeftState(this);
 
     const states = [stance,
-      parabolaJump,
+      forwardParabolaJump,
+      backwardParabolaJump,
       upwardJump,
       forwardWalk,
       backwardWalk,
@@ -65,23 +68,48 @@ export class Cyrax extends Unit {
 
     // init transitions
     downInputEvents = [InputEvent.Upward, InputEvent.Forward];
-    const stanceToParabolaState = new TransitionInputState(downInputEvents);
-    const stanceToParabola = new Transition(stance, parabolaJump, stanceToParabolaState);
+    upInputEvents = [];
+    fastClicks = [];
+    const stanceToForwardParabolaState = new TransitionInputState(downInputEvents);
+    const stanceToForwardParabola = new Transition(stance,
+                                                   forwardParabolaJump,
+                                                   stanceToForwardParabolaState);
+
+    downInputEvents = [InputEvent.Upward, InputEvent.Backward];
+    upInputEvents = [];
+    fastClicks = [];
+    const stanceToBackwardParabolaState = new TransitionInputState(downInputEvents);
+    const stanceToBackwardParabola = new Transition(stance,
+                                                    backwardParabolaJump,
+                                                    stanceToBackwardParabolaState);
 
     downInputEvents = [InputEvent.Upward];
+    upInputEvents = [];
+    fastClicks = [];
     const stanceToJumpUpwardState = new TransitionInputState(downInputEvents);
     const stanceToJumpUpward = new Transition(stance, upwardJump, stanceToJumpUpwardState);
 
     downInputEvents = [InputEvent.Upward, InputEvent.Forward];
     upInputEvents = [];
     fastClicks = [];
-    const forwardWalkToParabolaState = new TransitionInputState(downInputEvents,
-                                                                upInputEvents,
-                                                                fastClicks);
-    const forwardWalkToParabola = new Transition(forwardWalk,
-                                                 parabolaJump,
-                                                 forwardWalkToParabolaState);
-    forwardWalk.transitions.push(forwardWalkToParabola);
+    const forwardWalkToForwardParabolaState = new TransitionInputState(downInputEvents,
+                                                                       upInputEvents,
+                                                                       fastClicks);
+    const forwardWalkToForwardParabola = new Transition(forwardWalk,
+                                                        forwardParabolaJump,
+                                                        forwardWalkToForwardParabolaState);
+    forwardWalk.transitions.push(forwardWalkToForwardParabola);
+
+    downInputEvents = [InputEvent.Upward, InputEvent.Backward];
+    upInputEvents = [];
+    fastClicks = [];
+    const backwardWalkToBackwardParabolaState = new TransitionInputState(downInputEvents,
+                                                                         upInputEvents,
+                                                                         fastClicks);
+    const backwardWalkToBackwardParabola = new Transition(backwardWalk,
+                                                          backwardParabolaJump,
+                                                          backwardWalkToBackwardParabolaState);
+    backwardWalk.transitions.push(backwardWalkToBackwardParabola);
 
     downInputEvents = [];
     upInputEvents = [InputEvent.Forward];
@@ -149,7 +177,8 @@ export class Cyrax extends Unit {
     sit.transitions.push(sitToStandUp);
 
     stance.transitions.push(stanceToThrowWeb);
-    stance.transitions.push(stanceToParabola);
+    stance.transitions.push(stanceToForwardParabola);
+    stance.transitions.push(stanceToBackwardParabola);
     stance.transitions.push(stanceToJumpUpward);
     stance.transitions.push(stanceToForwardWalk);
     stance.transitions.push(stanceToBackwardWalk);

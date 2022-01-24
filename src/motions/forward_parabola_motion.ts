@@ -11,12 +11,11 @@ export class ForwardParabolaMotion extends FiniteMotion {
     const animation = entity.turned
       ? new BackwardParabolaMovement()
       : new ForwardParabolaMovement();
-    const isReverseAnimation = entity.turned;
     super(entity,
           AnimationName.ParabolaJump,
           entity.timerService,
           animation,
-          isReverseAnimation);
+          false);
 
     this.finiteConditions = [FiniteConditions.endPositionIsReached];
   }

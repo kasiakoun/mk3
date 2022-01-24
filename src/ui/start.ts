@@ -44,6 +44,7 @@ mappedInputEvents.set('ArrowUp', InputEvent.Upward);
 mappedInputEvents.set('ArrowRight', InputEvent.Forward);
 mappedInputEvents.set('ArrowDown', InputEvent.Downward);
 mappedInputEvents.set('Numpad3', InputEvent.Lowkick);
+mappedInputEvents.set('Numpad5', InputEvent.Test);
 
 export async function start() {
   initDebugTools();

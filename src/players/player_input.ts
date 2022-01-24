@@ -73,6 +73,8 @@ export class PlayerInput {
     return inputEvent;
   }
 
+  handleInput(passedTime: number) {
+    this.checkOnTest(passedTime);
     const newState = this.unit.stateMachine.handle(this.inputState);
     const resetInputEvents = this.unit.stateMachine.currentState !== newState &&
                              newState instanceof ResettableState;
@@ -82,6 +84,25 @@ export class PlayerInput {
                                               this.inputState.inputEventType!, 0);
     }
     // this.unit.currentState = newState;
+  }
+
+  private checkOnTest(passedTime: number) {
+    const fastInputEventsClicks = this.inputState.fastInputEventsClicks;
+    const fastKey = fastInputEventsClicks?.find(p => p.inputEvent === InputEvent.Test);
+    if (!fastKey) return;
+
+    // console.log(`fastInputEventsClicks before: ${fastInputEventsClicks?.length}`);
+    for (let i = fastInputEventsClicks!.length - 1; i >= 0; i--) {
+      let indexFastKey = fastInputEventsClicks!.indexOf(fastKey);
+      fastInputEventsClicks?.splice(indexFastKey, 1);
+
+      indexFastKey = fastInputEventsClicks!.indexOf(fastKey);
+      this.fastInputEvents?.splice(indexFastKey, 1);
+    }
+    // console.log(`fastInputEventsClicks after: ${fastInputEventsClicks?.length}`);
+    this.unit.turn(!this.unit.turned);
+    console.log(`checkOnTest: ${passedTime}`);
+    console.log('================================================================');
   }
 
   private createKeyDown(inputEvent: InputEvent, inputEventType: InputEventType): InputState {

@@ -11,4 +11,5 @@ export enum InputEvent {
   Highkick = 'highkick',
   Select = 'select',
   Start = 'start',
+  Test = 'test',
 }

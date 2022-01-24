@@ -28,6 +28,10 @@ export class SpriteSheet {
     return this.#animationFinished;
   }
 
+  lastMaxFrameWidth: number = 0;
+  lastRightCornerOffsetX: number = 0;
+  lastAnimationOffsetX: number = 0;
+
   constructor (readonly animations: Animation[],
                readonly image: string,
                readonly name: string) {

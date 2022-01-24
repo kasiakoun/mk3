@@ -28,6 +28,7 @@ import { InputEvent } from '../players/input_event';
 import { InputEventType } from '../players/input_event_type';
 import { GameTimer } from '../game_timer';
 import { CollisionResolver } from '../entities/collision/collision_resolver';
+import { TurnDetector } from '../entities/turn/turn_detector';
 
 const elementDictionary = new Map<unknown, Element>();
 let gameElement: HTMLElement;
@@ -43,6 +44,7 @@ mappedInputEvents.set('ArrowUp', InputEvent.Upward);
 mappedInputEvents.set('ArrowRight', InputEvent.Forward);
 mappedInputEvents.set('ArrowDown', InputEvent.Downward);
 mappedInputEvents.set('Numpad3', InputEvent.Lowkick);
+mappedInputEvents.set('Numpad5', InputEvent.Test);
 
 export async function start() {
   initDebugTools();
@@ -59,6 +61,7 @@ export async function start() {
   arena.entityRemoved.subscribe(p => onEntityRemoved(p));
 
   container.get<CollisionResolver>(nameof<CollisionResolver>());
+  container.get<TurnDetector>(nameof<TurnDetector>());
 
   const camera = container.get<Camera>(nameof<Camera>());
   camera.positionChanged.subscribe((position, parallaxLayerElements) =>
@@ -69,10 +72,11 @@ export async function start() {
 
   // todo: replace initial point
   const firstUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(100, 150));
+  firstUnit.turned = false;
   const secondUnit = await entityFactory.createUnit(UnitName.Cyrax, new Point(500, 150));
 
   const firstPlayerInput = new PlayerInput(firstUnit);
-  gameTimer.updated.subscribe(() => firstPlayerInput.handleInput());
+  gameTimer.updated.subscribe(passedTime => firstPlayerInput.handleInput(passedTime));
 
   window.addEventListener('keydown', (e) => {
     e.preventDefault();

@@ -13,28 +13,96 @@ export class PlayerInput {
 
   private inputState: InputState = new InputState([], []);
 
-  constructor(private readonly unit: Unit) {}
+  constructor(private readonly unit: Unit) {
+    unit.entityTurned.subscribe(turned => this.onEntityTurned(turned));
+  }
+
+  private onEntityTurned(turned: boolean) {
+    const fastInputEventsClicks = this.inputState.fastInputEventsClicks;
+    fastInputEventsClicks?.splice(0, fastInputEventsClicks?.length);
+    this.fastInputEvents.splice(0, this.fastInputEvents.length);
+
+    this.clearDownInputEventsByEntityTurn(turned);
+    this.clearInputStateByEntityTurn(turned);
+  }
+
+  private clearDownInputEventsByEntityTurn(turned: boolean) {
+    const keys = [...this.downInputEvents.keys()];
+    this.downInputEvents.clear();
+
+    const expiredTime = Date.now() - this.storingTime;
+    keys.forEach((key) => {
+      let downInputEvent = key;
+      if (key === InputEvent.Forward) downInputEvent = InputEvent.Backward;
+      if (key === InputEvent.Backward) downInputEvent = InputEvent.Forward;
+
+      this.downInputEvents.set(downInputEvent, expiredTime);
+    });
+  }
+
+  private clearInputStateByEntityTurn(turned: boolean) {
+    const keys = [...this.inputState.downInputEvents];
+    this.inputState.downInputEvents.splice(0, this.inputState.downInputEvents.length);
+
+    keys.forEach((key) => {
+      let downInputEvent = key;
+      if (key === InputEvent.Forward) downInputEvent = InputEvent.Backward;
+      if (key === InputEvent.Backward) downInputEvent = InputEvent.Forward;
+
+      this.inputState.downInputEvents.push(downInputEvent);
+    });
+  }
 
   fillchangeInputState(inputEvent: InputEvent, inputEventType: InputEventType) {
+    const newInputEvent = this.reverseInputEventByUnitTurn(inputEvent);
     if (inputEventType === InputEventType.Down) {
-      this.inputState = this.createKeyDown(inputEvent, inputEventType);
+      this.inputState = this.createKeyDown(newInputEvent, inputEventType);
     }
 
     if (inputEventType === InputEventType.Up) {
-      this.inputState = this.createKeyUp(inputEvent, inputEventType);
+      this.inputState = this.createKeyUp(newInputEvent, inputEventType);
     }
   }
 
-  handleInput() {
-    const newState = this.unit.currentState.handle(this.inputState);
-    const resetInputEvents = this.unit.currentState !== newState &&
+  reverseInputEventByUnitTurn(inputEvent: InputEvent): InputEvent {
+    if (!this.unit.turned) return inputEvent;
+
+    if (inputEvent === InputEvent.Forward) return InputEvent.Backward;
+    if (inputEvent === InputEvent.Backward) return InputEvent.Forward;
+
+    return inputEvent;
+  }
+
+  handleInput(passedTime: number) {
+    this.checkOnTest(passedTime);
+    const newState = this.unit.stateMachine.handle(this.inputState);
+    const resetInputEvents = this.unit.stateMachine.currentState !== newState &&
                              newState instanceof ResettableState;
     if (resetInputEvents) {
       this.fastInputEvents = [];
       this.inputState = this.createInputState(this.inputState.inputEvent!,
                                               this.inputState.inputEventType!, 0);
     }
-    this.unit.currentState = newState;
+    // this.unit.currentState = newState;
+  }
+
+  private checkOnTest(passedTime: number) {
+    const fastInputEventsClicks = this.inputState.fastInputEventsClicks;
+    const fastKey = fastInputEventsClicks?.find(p => p.inputEvent === InputEvent.Test);
+    if (!fastKey) return;
+
+    // console.log(`fastInputEventsClicks before: ${fastInputEventsClicks?.length}`);
+    for (let i = fastInputEventsClicks!.length - 1; i >= 0; i--) {
+      let indexFastKey = fastInputEventsClicks!.indexOf(fastKey);
+      fastInputEventsClicks?.splice(indexFastKey, 1);
+
+      indexFastKey = fastInputEventsClicks!.indexOf(fastKey);
+      this.fastInputEvents?.splice(indexFastKey, 1);
+    }
+    // console.log(`fastInputEventsClicks after: ${fastInputEventsClicks?.length}`);
+    this.unit.turn(!this.unit.turned);
+    console.log(`checkOnTest: ${passedTime}`);
+    console.log('================================================================');
   }
 
   private createKeyDown(inputEvent: InputEvent, inputEventType: InputEventType): InputState {

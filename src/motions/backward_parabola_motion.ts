@@ -8,15 +8,14 @@ import { FiniteMotion } from './finite_motion';
 
 export class BackwardParabolaMotion extends FiniteMotion {
   constructor(entity: Entity) {
-    const animation = entity.leftDirection
+    const animation = entity.turned
       ? new ForwardParabolaMovement()
       : new BackwardParabolaMovement();
-    const isReverseAnimation = !entity.leftDirection;
     super(entity,
           AnimationName.ParabolaJump,
           entity.timerService,
           animation,
-          isReverseAnimation);
+          true);
 
     this.finiteConditions = [FiniteConditions.endPositionIsReached];
   }

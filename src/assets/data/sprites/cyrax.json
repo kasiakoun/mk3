@@ -219,7 +219,7 @@
       ]
     },
     {
-      "name": "sit",
+      "name": "sit_down",
       "repeatAnimation": false,
       "frames": [
         {
@@ -227,27 +227,27 @@
           "y": 3965,
           "width": 90,
           "height": 121,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetX": -8,
+          "offsetY": 16,
+          "duplicates": 1
         },
         {
           "x": 108,
           "y": 3965,
           "width": 96,
           "height": 98,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetX": -11,
+          "offsetY": 39,
+          "duplicates": 1
         },
         {
           "x": 213,
           "y": 3965,
           "width": 84,
           "height": 73,
-          "offsetX": 0,
-          "offsetY": 0,
-          "duplicates": 0
+          "offsetX": -6,
+          "offsetY": 64,
+          "duplicates": 1
         }
       ]
     },
@@ -413,6 +413,87 @@
           "offsetX": 8,
           "offsetY": 1,
           "duplicates": 5
+        }
+      ]
+    },
+    {
+      "name": "stand_turn",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 284,
+          "y": 4306,
+          "width": 73,
+          "height": 134,
+          "offsetX": -2,
+          "offsetY": 3,
+          "duplicates": 1
+        },
+        {
+          "x": 358,
+          "y": 4306,
+          "width": 72,
+          "height": 134,
+          "offsetX": -5,
+          "offsetY": 3,
+          "duplicates": 1
+        },
+        {
+          "x": 431,
+          "y": 4306,
+          "width": 73,
+          "height": 134,
+          "offsetX": 0,
+          "offsetY": 3,
+          "duplicates": 1
+        }
+      ]
+    },
+    {
+      "name": "sit_turn",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 0,
+          "y": 4306,
+          "width": 92,
+          "height": 77,
+          "offsetX": -8,
+          "offsetY": 60,
+          "duplicates": 1
+        },
+        {
+          "x": 93,
+          "y": 4306,
+          "width": 97,
+          "height": 76,
+          "offsetX": -15,
+          "offsetY": 61,
+          "duplicates": 1
+        },
+        {
+          "x": 191,
+          "y": 4306,
+          "width": 92,
+          "height": 76,
+          "offsetX": -9,
+          "offsetY": 61,
+          "duplicates": 1
+        }
+      ]
+    },
+    {
+      "name": "sit",
+      "repeatAnimation": false,
+      "frames": [
+        {
+          "x": 213,
+          "y": 3965,
+          "width": 84,
+          "height": 73,
+          "offsetX": -6,
+          "offsetY": 64,
+          "duplicates": 0
         }
       ]
     }

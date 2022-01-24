@@ -6,14 +6,11 @@ import { InfiniteMotion } from './infinite_motion';
 
 export class ForwardWalkMotion extends InfiniteMotion {
   constructor(entity: Entity) {
-    const movement = entity.leftDirection
-      ? new BackwardWalkMovement()
-      : new ForwardWalkMovement();
-    const isReverseAnimation = entity.leftDirection;
+    const movement = new ForwardWalkMovement(entity.turned);
     super(entity,
           AnimationName.Walk,
           entity.timerService,
           movement,
-          isReverseAnimation);
+          false);
   }
 }

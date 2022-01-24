@@ -1,0 +1,15 @@
+export enum StateName {
+  BackwardWalk = 'backward_walk',
+  CyraxThrowWeb = 'cyrax_throw_web',
+  ForwardWalk = 'forward_walk_state',
+  ParabolaJump = 'parabola_jump',
+  Sit = 'sit',
+  SitDown = 'sit_down',
+  Stance = 'stance',
+  StandTurnToRight = 'stand_turn_to_right',
+  StandTurnToLeft = 'stand_turn_to_left',
+  StandUp = 'stand_up',
+  UpwardJump = 'upward_jump',
+  SitTurnToRight = 'sit_turn_to_right',
+  SitTurnToLeft = 'sit_turn_to_left',
+}

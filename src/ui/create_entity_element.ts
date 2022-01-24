@@ -12,7 +12,7 @@ export function createEntityElement(entity: Entity): Element {
     entityElement.style.backgroundPosition = `-${entity.spriteSheet.currentFrame.imageOffset.x}px -${entity.spriteSheet.currentFrame.imageOffset.y}px`;
   }
 
-  if (entity.leftDirection) {
+  if (entity.turned) {
     entityElement.style.transform = 'scaleX(-1)';
   }
 
@@ -20,10 +20,12 @@ export function createEntityElement(entity: Entity): Element {
   // unitElement.style.height = '1px';
   // unitElement.style.backgroundColor = 'black';
 
-  // unitElement.style.border = '1px solid red';
+  // entityElement.style.border = '1px solid red';
 
   entityElement.style.marginLeft = `${entity.transform.position.x}px`;
   entityElement.style.marginTop = `${entity.transform.position.y}px`;
+
+  // entityElement.innerHTML = `${entity.transform.position.x}`;
 
   return entityElement;
 }

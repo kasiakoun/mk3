@@ -15,8 +15,6 @@ export class AnimationBackwardFrameStrategy extends AnimationFrameStrategy {
     const frames = this.spriteSheet.currentAnimation?.frames.map(p => p);
     if (!frames) return undefined!;
 
-    frames.reverse();
-
     return this.getRightCornerOffsetFromArray(frames);
   }
 }
